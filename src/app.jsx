@@ -97,7 +97,7 @@ export default function Dashboard() {
   // (GOLANG project as the others?)
   const importSwitchUi = () => {
     // TODO: check che JSON error on the console
-    let apiurl = { APP_ENDPOINT: 'http://0.0.0.0:8083/' };
+      let apiurl = { APP_ENDPOINT: 'http://0.0.0.0:8083' };
     window.APP_CONFIG = apiurl;
     setSystem({
       url: "http://localhost:8083/remoteEntry.js",
