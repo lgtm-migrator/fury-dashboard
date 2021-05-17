@@ -1,6 +1,6 @@
 import React, { useEffect, useState, Suspense, lazy } from 'react';
 
-function loadComponent(scope, module) {
+const loadComponent = (scope, module) => {
   return async () => {
     // Initializes the share scope. This fills it with known provided modules from this build and all remotes
     await __webpack_init_sharing__("default");
@@ -92,8 +92,12 @@ const System = (props) => {
 export default function Dashboard() {
   const [system, setSystem] = useState(undefined);
 
+  // TODO: integrate endpoint configuration
+  // and structure the project as standalone 
+  // (GOLANG project as the others?)
   const importSwitchUi = () => {
-    let apiurl = { APP_ENDPOINT: 'http://0.0.0.0:8084/' };
+    // TODO: check che JSON error on the console
+    let apiurl = { APP_ENDPOINT: 'http://0.0.0.0:8083/' };
     window.APP_CONFIG = apiurl;
     setSystem({
       url: "http://localhost:8083/remoteEntry.js",
