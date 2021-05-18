@@ -6,3 +6,4 @@ dist
 config.yml
 node_modules
 build
+yarn.lock
