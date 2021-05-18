@@ -1,4 +1,14 @@
 import React, { useEffect, useState, Suspense, lazy } from "react";
+import {
+  EuiBadge,
+  EuiHeader,
+  EuiHeaderLogo,
+  EuiHeaderLink,
+  EuiHeaderLinks,
+  EuiHeaderSectionItem,
+} from 'fury-design-system';
+
+import logo from '../src/assets/logo.svg';
 
 const loadComponent = (scope, module) => async () => {
   // Initializes the share scope. This fills it with known provided modules from this build and all remotes
@@ -56,8 +66,6 @@ const useDynamicScript = (args) => {
   };
 };
 
-// TODO: enable multiple federated module imports
-// now it's only a toggle from a component to another
 const System = (props) => {
   console.log("system 3001", props);
   const { ready, failed } = useDynamicScript({
@@ -122,8 +130,19 @@ export default function Dashboard() {
 
   return (
     <>
-      <h1>This is the Dashboard</h1>
-      {/* <button onClick={importSwitchUi}>Load Switch UI</button> */}
+      <EuiHeader theme="dark">
+        <EuiHeaderSectionItem border="right">
+          <EuiHeaderLogo iconType={logo}>F U R Y</EuiHeaderLogo>
+          <EuiBadge color="primary">V.1.5.1</EuiBadge>
+        </EuiHeaderSectionItem>
+        <EuiHeaderSectionItem>
+        </EuiHeaderSectionItem>
+        <EuiHeaderSectionItem>
+          <EuiHeaderLinks aria-label="App navigation links example">
+            <EuiHeaderLink iconType="help">Help</EuiHeaderLink>
+          </EuiHeaderLinks>
+        </EuiHeaderSectionItem>
+      </EuiHeader>
       <System system={system} />
       {/* INFO: In order to render the remote component, we make use of the wrapper component System */}
       {/* <System system={remoteComponent} /> */}
