@@ -2,13 +2,12 @@ import React, { useEffect, useState, Suspense, lazy } from "react";
 import {
   EuiBadge,
   EuiHeader,
+  EuiSpacer,
   EuiHeaderLogo,
   EuiHeaderLink,
   EuiHeaderLinks,
-  EuiHeaderSection,
   EuiHeaderBreadcrumbs,
   EuiHeaderSectionItem,
-  EuiHeaderSectionItemButton,
 } from 'fury-design-system';
 
 import logo from '../src/assets/logo.svg';
@@ -175,6 +174,7 @@ export default function Dashboard() {
           aria-label="Header breadcrumbs example"
         />
       </EuiHeader>
+      <EuiSpacer size="xxl" />
 
       {/* INFO: In order to render the remote component, we make use of the wrapper component System */}
       <System system={system} />
