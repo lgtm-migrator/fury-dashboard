@@ -1,0 +1,37 @@
+# Copyright (c) 2021 SIGHUP s.r.l All rights reserved.
+# Use of this source code is governed by a BSD-style
+# license that can be found in the LICENSE file.
+
+---
+project_name: fury-dashboard
+builds:
+  - binary: 'fury-dashboard'
+    id: fury-dashboard-linux
+    goarch:
+      - amd64
+    goos:
+      - linux
+archives:
+  - format: binary
+    id: fury-dashboard-linux-bin
+    wrap_in_directory: false
+    name_template: '{{ .ProjectName }}-{{ .Os }}-{{ .Arch }}'
+    builds:
+      - fury-dashboard-linux
+checksum:
+  name_template: 'sha256sum.txt'
+snapshot:
+  name_template: '{{ .Tag }}'
+changelog:
+  sort: asc
+  filters:
+    exclude:
+      - '^docs:'
+      - '^test:'
+release:
+  ids:
+    - fury-dashboard-linux-bin
+  github:
+    owner: sighupio
+    name: fury-dashboard
+  name_template: '{{ .Tag }}'
