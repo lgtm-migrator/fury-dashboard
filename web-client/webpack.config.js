@@ -72,9 +72,7 @@ module.exports = {
         // filename: 'remoteEntry.js',
 	      exposes: {},
         remotes: {
-          FuryConnectSwitchUI: 'FuryConnectSwitchUI@http://localhost:8083/remoteEntry.js',
-          // furyConnectSwitchToggle: 'fury_connect_switch_toggle@http://localhost:3003/toggleUi.js',
-          // furyConnectSwitchInterface: 'fury_connect_switch_interface@http://localhost:3002/userInterface.js',
+          // remotes will be loaded dinamically from the app.jsx
         },
         shared: {
           ...automaticVendorFederation,

@@ -2,9 +2,11 @@ import React, { useEffect, useState, Suspense, lazy } from "react";
 import {
   EuiBadge,
   EuiHeader,
+  EuiSpacer,
   EuiHeaderLogo,
   EuiHeaderLink,
   EuiHeaderLinks,
+  EuiHeaderBreadcrumbs,
   EuiHeaderSectionItem,
 } from 'fury-design-system';
 
@@ -128,8 +130,31 @@ export default function Dashboard() {
     // importRemoteComponent();
   }, []);
 
+  const breadcrumbs = [
+    {
+      text: 'Cluster: 42',
+      href: '#',
+      onClick: (e) => {
+        e.preventDefault();
+      },
+    },
+    {
+      text: 'Namespace: Dev',
+      href: '#',
+      onClick: (e) => {
+        e.preventDefault();
+      },
+      'data-test-subj': 'breadcrumbsAnimals',
+      className: 'customClass',
+    },
+    {
+      text: 'Node: Test Node',
+    },
+  ];
+
   return (
     <>
+      {/* Sample Static Headers */}
       <EuiHeader theme="dark">
         <EuiHeaderSectionItem border="right">
           <EuiHeaderLogo iconType={logo}>F U R Y</EuiHeaderLogo>
@@ -143,8 +168,16 @@ export default function Dashboard() {
           </EuiHeaderLinks>
         </EuiHeaderSectionItem>
       </EuiHeader>
-      <System system={system} />
+      <EuiHeader>
+        <EuiHeaderBreadcrumbs
+          breadcrumbs={breadcrumbs}
+          aria-label="Header breadcrumbs example"
+        />
+      </EuiHeader>
+      <EuiSpacer size="xxl" />
+
       {/* INFO: In order to render the remote component, we make use of the wrapper component System */}
+      <System system={system} />
       {/* <System system={remoteComponent} /> */}
     </>
   );
