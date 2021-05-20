@@ -9,7 +9,7 @@ import {
   EuiHeaderBreadcrumbs,
   EuiHeaderSectionItem,
 } from 'fury-design-system';
-
+import 'fury-design-system/dist/eui_theme_fury_community.css';
 import logo from '../src/assets/logo.svg';
 
 const loadComponent = (scope, module) => async () => {
@@ -25,7 +25,6 @@ const loadComponent = (scope, module) => async () => {
 };
 
 const useDynamicScript = (args) => {
-  console.log("args", args);
   const [ready, setReady] = useState(false);
   const [failed, setFailed] = useState(false);
 
@@ -69,7 +68,6 @@ const useDynamicScript = (args) => {
 };
 
 const System = (props) => {
-  console.log("system 3001", props);
   const { ready, failed } = useDynamicScript({
     url: props.system && props.system.url,
   });
@@ -98,24 +96,26 @@ const System = (props) => {
 };
 
 export default function Dashboard() {
-  const [system, setSystem] = useState(undefined);
   // INFO: Each state variable represents a remote component from a federated module
+  const [system, setSystem] = useState(undefined);
   // const [remoteComponent, setRemoteComponent] = useState(undefined);
 
   // TODO: integrate endpoint configuration
   // and structure the project as standalone
   // (GOLANG project as the others?)
-  const importSwitchUi = () => {
+  const importFurySupport = () => {
     const apiurl = { APP_ENDPOINT: "http://0.0.0.0:8083" };
     window.APP_CONFIG = apiurl;
     setSystem({
       url: "http://localhost:8083/remoteEntry.js",
       scope: "FuryConnectSwitchUI",
-      module: "./FuryConnectSwitchUI",
+      module: "./FurySupport",
     });
   };
 
-  // INFO: Each remote component needs a configuration object in order to retrieve lazily the module from remote entrypoint
+  // INFO: Each remote component needs a 
+  // configuration object in order to retrieve 
+  // lazily the module from remote entrypoint
   // const importRemoteComponent = () => {
   //   setRemoteComponent({
   //     url: "<REMOTE_URL>/<REMOTE_MODULE>.js",
@@ -125,8 +125,9 @@ export default function Dashboard() {
   // };
 
   useEffect(() => {
-    importSwitchUi();
-    // INFO: Here on mount we load every remote component
+    // INFO: Here on mount we load 
+    // every remote component
+    importFurySupport();
     // importRemoteComponent();
   }, []);
 
