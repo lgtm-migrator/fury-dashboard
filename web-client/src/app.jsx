@@ -133,24 +133,24 @@ export default function Dashboard() {
 
   const breadcrumbs = [
     {
-      text: 'Cluster: 42',
+      text: 'Organization: FooCompany',
       href: '#',
       onClick: (e) => {
         e.preventDefault();
       },
     },
-    {
-      text: 'Namespace: Dev',
-      href: '#',
-      onClick: (e) => {
-        e.preventDefault();
-      },
-      'data-test-subj': 'breadcrumbsAnimals',
-      className: 'customClass',
-    },
-    {
-      text: 'Node: Test Node',
-    },
+    // {
+    //   text: 'Namespace: Dev',
+    //   href: '#',
+    //   onClick: (e) => {
+    //     e.preventDefault();
+    //   },
+    //   'data-test-subj': 'breadcrumbsAnimals',
+    //   className: 'customClass',
+    // },
+    // {
+    //   text: 'Node: Test Node',
+    // },
   ];
 
   return (
