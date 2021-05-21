@@ -13,15 +13,16 @@ import (
 )
 
 type YamlConfig struct {
-	Listener         string            `yaml:"listener"`
-	ExternalEndpoint string            `yaml:"externalEndpoint"`
-	RemoteComponents []RemoteComponent `yaml:"remoteComponents"`
+	Listener         string                     `yaml:"listener"`
+	ExternalEndpoint string                     `yaml:"externalEndpoint"`
+	RemoteComponents map[string]RemoteComponent `yaml:"remoteComponents"`
 }
 
 type RemoteComponent struct {
-	Scope  string `yaml:"scope"`
-	Module string `yaml:"module"`
-	Url    string `yaml:"url"`
+	Scope  string            `yaml:"scope"`
+	Module string            `yaml:"module"`
+	Url    string            `yaml:"url"`
+	Params map[string]string `yaml:"params"`
 }
 
 func GetConfig() *viper.Viper {
@@ -56,7 +57,8 @@ func GetFrontEndConfigFile(cfg YamlConfig) string {
 	}
 
 	return fmt.Sprintf(`window.dashboard_config = {
+"DASHBOARD_ENDPOINT": "%v",
 "REMOTE_COMPONENTS": %v
 };
-`, string(config))
+`, cfg.ExternalEndpoint, string(config))
 }

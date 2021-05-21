@@ -4,8 +4,11 @@
 
 ---
 listener: 0.0.0.0:8080
-externalEndpoint: http://localhost:8083
+externalEndpoint: http://localhost:8087
 remoteComponents:
-  - scope: FuryConnectSwitchUI 
+  furyconnectswitchui:
+    scope: FuryConnectSwitchUI 
     module: ./FurySupport
-    url: http://localhost:8083/remoteEntry.js 
+    url: http://localhost:8083/remoteEntry.js
+    params:
+      apiUrl: http://localhost:8083

@@ -8,9 +8,9 @@ import {
   EuiHeaderLinks,
   EuiHeaderBreadcrumbs,
   EuiHeaderSectionItem,
-} from 'fury-design-system';
-import 'fury-design-system/dist/eui_theme_fury_community.css';
-import logo from '../src/assets/logo.svg';
+} from "fury-design-system";
+import "fury-design-system/dist/eui_theme_fury_community.css";
+import logo from "../src/assets/logo.svg";
 
 const loadComponent = (scope, module) => async () => {
   // Initializes the share scope. This fills it with known provided modules from this build and all remotes
@@ -104,17 +104,21 @@ export default function Dashboard() {
   // and structure the project as standalone
   // (GOLANG project as the others?)
   const importFurySupport = () => {
-    const apiurl = { APP_ENDPOINT: "http://0.0.0.0:8083" };
+    const remoteFuryConnectSwitchUIConfig =
+      window.DASHBOARD_CONFIG.REMOTE_COMPONENTS.furyconnectswitchui;
+    const apiurl = {
+      APP_ENDPOINT: remoteFuryConnectSwitchUIConfig.Params.apiurl,
+    };
     window.APP_CONFIG = apiurl;
     setSystem({
-      url: "http://localhost:8083/remoteEntry.js",
-      scope: "FuryConnectSwitchUI",
-      module: "./FurySupport",
+      url: remoteFuryConnectSwitchUIConfig.Url,
+      scope: remoteFuryConnectSwitchUIConfig.Scope,
+      module: remoteFuryConnectSwitchUIConfig.Module,
     });
   };
 
-  // INFO: Each remote component needs a 
-  // configuration object in order to retrieve 
+  // INFO: Each remote component needs a
+  // configuration object in order to retrieve
   // lazily the module from remote entrypoint
   // const importRemoteComponent = () => {
   //   setRemoteComponent({
@@ -125,7 +129,7 @@ export default function Dashboard() {
   // };
 
   useEffect(() => {
-    // INFO: Here on mount we load 
+    // INFO: Here on mount we load
     // every remote component
     importFurySupport();
     // importRemoteComponent();
@@ -133,8 +137,8 @@ export default function Dashboard() {
 
   const breadcrumbs = [
     {
-      text: 'Organization: FooCompany',
-      href: '#',
+      text: "Organization: FooCompany",
+      href: "#",
       onClick: (e) => {
         e.preventDefault();
       },
@@ -161,8 +165,7 @@ export default function Dashboard() {
           <EuiHeaderLogo iconType={logo}>F U R Y</EuiHeaderLogo>
           <EuiBadge color="primary">V.1.5.1</EuiBadge>
         </EuiHeaderSectionItem>
-        <EuiHeaderSectionItem>
-        </EuiHeaderSectionItem>
+        <EuiHeaderSectionItem></EuiHeaderSectionItem>
         <EuiHeaderSectionItem>
           <EuiHeaderLinks aria-label="App navigation links example">
             <EuiHeaderLink iconType="help">Help</EuiHeaderLink>
