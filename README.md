@@ -19,9 +19,8 @@ To deploy this utility in your hosts, take in mind the following requirements mu
 To install/update the latest version in your hosts:
 
 ```bash
-$ curl -s https://api.github.com/repos/sighupio/fury-dashboard/releases/latest | grep browser_download_url | grep linux | cut -d '"' -f 4 | xargs curl -Ls -o fury-dashboard
+$ curl -s https://api.github.com/repos/sighupio/fury-dashboard/releases/latest | grep browser_download_url | cut -d '"' -f 4 | xargs curl -Ls -o fury-dashboard
 $ chmod +x fury-dashboard
-$ sudo mv fury-dashboard /usr/local/bin/fury-dashboard
 ```
 
 Then, don't forget to create a `config.yml` file (you can copy/paste the `sample-config.yaml`):
@@ -44,7 +43,7 @@ remoteComponents:
 ### Run
 
 ```bash
-TBD
+$ ./fury-dashboard
 ```
 
 ## Building
