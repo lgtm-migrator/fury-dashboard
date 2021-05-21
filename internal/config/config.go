@@ -5,6 +5,7 @@
 package config
 
 import (
+	"encoding/json"
 	"fmt"
 	"log"
 
@@ -12,14 +13,15 @@ import (
 )
 
 type YamlConfig struct {
-	Listener         string `yaml:"listener"`
-	ExternalEndpoint string `yaml:"externalEndpoint"`
-	Units            []Unit `yaml:"units"`
+	Listener         string            `yaml:"listener"`
+	ExternalEndpoint string            `yaml:"externalEndpoint"`
+	RemoteComponents []RemoteComponent `yaml:"remoteComponents"`
 }
 
-type Unit struct {
-	Name string `yaml:"name"`
-	ID   string `yaml:"id"`
+type RemoteComponent struct {
+	Scope  string `yaml:"scope"`
+	Module string `yaml:"module"`
+	Url    string `yaml:"url"`
 }
 
 func GetConfig() *viper.Viper {
@@ -47,8 +49,14 @@ func GetYamlConf() *YamlConfig {
 }
 
 func GetFrontEndConfigFile(cfg YamlConfig) string {
-	return fmt.Sprintf(`window.config = {
-	"APP_ENDPOINT": "%v"
+	config, err := json.Marshal(cfg.RemoteComponents)
+
+	if err != nil {
+		log.Fatalf("error: %v", err)
+	}
+
+	return fmt.Sprintf(`window.dashboard_config = {
+"REMOTE_COMPONENTS": %v
 };
-`, cfg.ExternalEndpoint)
+`, string(config))
 }

@@ -5,6 +5,7 @@
 ---
 listener: 0.0.0.0:8080
 externalEndpoint: http://localhost:8083
-units:
-  - name: sshd service
-    id: ssh.service
+remoteComponents:
+  - scope: FuryConnectSwitchUI 
+    module: ./FurySupport
+    url: http://localhost:8083/remoteEntry.js 
