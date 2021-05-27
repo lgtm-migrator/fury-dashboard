@@ -20,10 +20,15 @@ module.exports = {
   //   minimize: false
   // },
   resolve: {
-    extensions: ['.jsx', '.js', '.json'],
+    extensions: ['.ts', '.tsx', '.jsx', '.js', '.json'],
   },
   module: {
     rules: [
+      {
+        test: /\.tsx?/,
+        use: 'ts-loader',
+        exclude: /node_modules/,
+      },
       {
         test: /bootstrap\.js$/,
         loader: "bundle-loader",
