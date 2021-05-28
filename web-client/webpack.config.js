@@ -83,17 +83,17 @@ module.exports = {
           ...automaticVendorFederation,
           react: {
             eager: false,
-            singleton: false,
+            singleton: true,
             requiredVersion: packageJson.dependencies.react,
           },
           'react-dom': {
             eager: false,
-            singleton: false,
+            singleton: true,
             requiredVersion: packageJson.dependencies['react-dom'],
           },
           'fury-design-system': {
             eager: false,
-            singleton: false,
+            singleton: true,
             requiredVersion: packageJson.dependencies['fury-design-system'],
           },
         },
