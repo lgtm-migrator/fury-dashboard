@@ -1,18 +1,20 @@
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ModuleFederationPlugin = require('webpack/lib/container/ModuleFederationPlugin');
-const AutomaticVendorFederation = require('@module-federation/automatic-vendor-federation');
-const packageJson = require('./package.json');
-const exclude = ['babel', 'plugin', 'preset', 'webpack', 'loader', 'serve'];
-const ignoreVersion = ['react', 'react-dom'];
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const ModuleFederationPlugin = require("webpack/lib/container/ModuleFederationPlugin");
+const AutomaticVendorFederation = require("@module-federation/automatic-vendor-federation");
+const webpack = require("webpack");
+const dotenv = require("dotenv").config({ path: __dirname + "/.env" });
+const packageJson = require("./package.json");
+const exclude = ["babel", "plugin", "preset", "webpack", "loader", "serve"];
+const ignoreVersion = ["react", "react-dom"];
 const automaticVendorFederation = AutomaticVendorFederation({
   exclude,
   ignoreVersion,
   packageJson,
-  shareFrom: ['dependencies', 'peerDependencies'],
+  shareFrom: ["dependencies", "peerDependencies"],
   ignorePatchVersion: false,
 });
 module.exports = {
-  mode: 'development',
+  mode: "development",
   devServer: {
     port: 8082,
   },
@@ -20,13 +22,13 @@ module.exports = {
   //   minimize: false
   // },
   resolve: {
-    extensions: ['.ts', '.tsx', '.jsx', '.js', '.json'],
+    extensions: [".ts", ".tsx", ".jsx", ".js", ".json"],
   },
   module: {
     rules: [
       {
         test: /\.tsx?/,
-        use: 'ts-loader',
+        use: "ts-loader",
         exclude: /node_modules/,
       },
       {
@@ -51,58 +53,59 @@ module.exports = {
         Babel will not compile any files in this directory */
         exclude: /node_modules/,
         // To Use babel Loader
-        loader: 'babel-loader',
+        loader: "babel-loader",
         options: {
           presets: [
-            '@babel/preset-env' /* to transfer any advansed ES to ES5 */,
-            '@babel/preset-react',
+            "@babel/preset-env" /* to transfer any advansed ES to ES5 */,
+            "@babel/preset-react",
           ], // to compile react to ES5
         },
       },
       {
         test: /\.css$/i,
-        use: ['style-loader', 'css-loader']
+        use: ["style-loader", "css-loader"],
       },
       {
         test: /\.(png|svg|jpg|jpeg|gif|ico)$/,
         exclude: /node_modules/,
-        use: ['file-loader?name=[name].[ext]']
-      }
+        use: ["file-loader?name=[name].[ext]"],
+      },
     ],
   },
   plugins: [
-    new ModuleFederationPlugin(
-      {
-        name: 'Dashboard',
-        // filename: 'remoteEntry.js',
-	      exposes: {},
-        remotes: {
-          // remotes will be loaded dinamically from the app.jsx
+    new ModuleFederationPlugin({
+      name: "Dashboard",
+      // filename: 'remoteEntry.js',
+      exposes: {},
+      remotes: {
+        // remotes will be loaded dinamically from the app.jsx
+      },
+      shared: {
+        ...automaticVendorFederation,
+        react: {
+          eager: false,
+          singleton: true,
+          requiredVersion: packageJson.dependencies.react,
         },
-        shared: {
-          ...automaticVendorFederation,
-          react: {
-            eager: false,
-            singleton: true,
-            requiredVersion: packageJson.dependencies.react,
-          },
-          'react-dom': {
-            eager: false,
-            singleton: true,
-            requiredVersion: packageJson.dependencies['react-dom'],
-          },
-          'fury-design-system': {
-            eager: false,
-            singleton: true,
-            requiredVersion: packageJson.dependencies['fury-design-system'],
-          },
+        "react-dom": {
+          eager: false,
+          singleton: true,
+          requiredVersion: packageJson.dependencies["react-dom"],
         },
-      }
-    ),
+        "fury-design-system": {
+          eager: false,
+          singleton: true,
+          requiredVersion: packageJson.dependencies["fury-design-system"],
+        },
+      },
+    }),
     new HtmlWebpackPlugin({
-      template: './public/index.html',
-      favicon: './public/favicon.ico',
-      manifest: './public/manifest.json'
+      template: "./public/index.html",
+      favicon: "./public/favicon.ico",
+      manifest: "./public/manifest.json",
+    }),
+    new webpack.DefinePlugin({
+      "process.env": JSON.stringify(dotenv.parsed),
     }),
   ],
 };

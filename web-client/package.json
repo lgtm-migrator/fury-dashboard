@@ -8,6 +8,7 @@
     "dev": "concurrently \"webpack --watch\" \"serve dist -p 3001\""
   },
   "dependencies": {
+    "dotenv": "^10.0.0",
     "fury-design-system": "^0.0.5",
     "react": "17.0.2",
     "react-dom": "17.0.2"

@@ -108,7 +108,9 @@ export default function Dashboard() {
   // (GOLANG project as the others?)
   const importFurySupport = () => {
     const remoteFuryConnectSwitchUIConfig =
-      window.DASHBOARD_CONFIG.REMOTE_COMPONENTS.furyconnectswitchui;
+      window.DASHBOARD_CONFIG ?
+      window.DASHBOARD_CONFIG.REMOTE_COMPONENTS.furyconnectswitchui :
+      JSON.parse(process.env.DASHBOARD_CONFIG).REMOTE_COMPONENTS.furyconnectswitchui;
     const apiurl = {
       APP_ENDPOINT: remoteFuryConnectSwitchUIConfig.Params.apiurl,
     };
