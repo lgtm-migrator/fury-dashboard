@@ -2,8 +2,9 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const ModuleFederationPlugin = require("webpack/lib/container/ModuleFederationPlugin");
 const AutomaticVendorFederation = require("@module-federation/automatic-vendor-federation");
 const webpack = require("webpack");
-const dotenv = require("dotenv").config({ path: __dirname + "/.env" });
+const dotenv = require("dotenv").config({ path: `${__dirname}/.env` });
 const packageJson = require("./package.json");
+
 const exclude = ["babel", "plugin", "preset", "webpack", "loader", "serve"];
 const ignoreVersion = ["react", "react-dom"];
 const automaticVendorFederation = AutomaticVendorFederation({
