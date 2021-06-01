@@ -1,10 +1,16 @@
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const ModuleFederationPlugin = require("webpack/lib/container/ModuleFederationPlugin");
 const AutomaticVendorFederation = require("@module-federation/automatic-vendor-federation");
 const webpack = require("webpack");
 const dotenv = require("dotenv").config({ path: `${__dirname}/.env` });
+const path = require("path");
 const packageJson = require("./package.json");
 
+const FURY_DESIGN_SYSTEM_PATH = path.resolve(
+  __dirname,
+  "./node_modules/fury-design-system/dist/eui_theme_fury_community.css"
+);
 const exclude = ["babel", "plugin", "preset", "webpack", "loader", "serve"];
 const ignoreVersion = ["react", "react-dom"];
 const automaticVendorFederation = AutomaticVendorFederation({
@@ -62,9 +68,15 @@ module.exports = {
           ], // to compile react to ES5
         },
       },
+      // {
+      //   test: /\.css$/i,
+      //   include: [FURY_DESIGN_SYSTEM_PATH],
+      //   use: [MiniCssExtractPlugin.loader, "css-loader", "postcss-loader"],
+      // },
       {
-        test: /\.css$/i,
-        use: ["style-loader", "css-loader"],
+        test: /\.(css|scss)$/i,
+        exclude: /node_modules/,
+        use: ["style-loader", "css-loader", "sass-loader"],
       },
       {
         test: /\.(png|svg|jpg|jpeg|gif|ico)$/,
@@ -74,6 +86,10 @@ module.exports = {
     ],
   },
   plugins: [
+    new MiniCssExtractPlugin({
+      filename: "index.css",
+      chunkFilename: "index.css",
+    }),
     new ModuleFederationPlugin({
       name: "Dashboard",
       // filename: 'remoteEntry.js',

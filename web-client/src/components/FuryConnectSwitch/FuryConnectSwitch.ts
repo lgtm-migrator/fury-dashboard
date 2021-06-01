@@ -6,7 +6,7 @@ export default class FuryConnectSwitch extends HTMLElement {
   mountPoint: HTMLDivElement;
 
   createFuryConnectSwitch() {
-    return React.createElement(FuryConnectSwitchReact, {}, React.createElement("slot"));
+    return React.createElement(FuryConnectSwitchReact, {}, React.createElement("content"));
   }
 
   connectedCallback() {

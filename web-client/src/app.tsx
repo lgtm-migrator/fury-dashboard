@@ -1,7 +1,7 @@
 import { createBrowserHistory } from "history";
 import FuryConnectSwitch from "./components/FuryConnectSwitch/FuryConnectSwitch";
 // import "fury-design-system/dist/eui_theme_fury_community.css";
-import "./index.css";
+import "./index.scss";
 
 window.customElements.define("fury-connect-switch", FuryConnectSwitch);
 
