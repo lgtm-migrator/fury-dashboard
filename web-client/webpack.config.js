@@ -22,8 +22,13 @@ const automaticVendorFederation = AutomaticVendorFederation({
 });
 module.exports = {
   mode: "development",
+  output: {
+    publicPath: "/",
+  },
   devServer: {
     port: 8082,
+    publicPath: "/",
+    historyApiFallback: true,
   },
   // optimization: {
   //   minimize: false

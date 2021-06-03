@@ -5,7 +5,7 @@ Vagrant.configure("2") do |config|
         :os         => 'bento/ubuntu-20.04',
         :hostname   => 'fury-dashboard',
         :ip         => '192.168.33.75',
-        :memory     => '1024',
+        :memory     => '4096',
         :cpus       => 2,
         :autostart  => true,
       },

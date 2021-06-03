@@ -11,7 +11,7 @@ import {
 } from "fury-design-system";
 import logo from "../../assets/logo.svg";
 import { DynamicComponentWrapper } from "../DynamicComponentWrapper/DynamicComponentWrapper";
-import './FuryDashboardReact.scss'
+// import './FuryDashboardReact.scss'
 
 export default function FuryDashboardReact() {
   // INFO: Each state variable represents a remote component from a federated module

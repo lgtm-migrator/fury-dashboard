@@ -37,6 +37,8 @@ After that you'll have global style also inside your component, now if you want 
     /* Your SCSS Rules */
   }
 ```
+#### [WARNING] Css and ShadowDOM
+Keep in mind that css of imported shadowDOM components will not be included because of the shadowDOM encapsulation!!!
 
 **WATCH OUT** This project needs other active services (for now only one) to shows the true aggregator functionality of dashboard. You can see the whole picture by downloading and running also the [`fury-connect-switch`](https://github.com/sighupio/fury-connect-switch/tree/ui) project.
 

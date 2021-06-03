@@ -1,6 +1,5 @@
 import { createBrowserHistory } from "history";
 import FuryDashboard from "./components/FuryDashboard/FuryDashboard";
-// import "fury-design-system/dist/eui_theme_fury_community.css";
 import "./index.scss";
 
 window.customElements.define("fury-dashboard", FuryDashboard);
@@ -10,14 +9,17 @@ let history = createBrowserHistory();
 const appContent = document.querySelector("#root");
 
 const routes = {
-  "/": "fury-dashboard"
+  "/": "div",
+  "/support": "fury-dashboard"
 };
 
 const findComponentName = (pathName: string) => {
+  console.log("pathname", pathName)
   return routes[pathName] || "not found";
 };
 
 const updatePageComponent = (location) => {
+  console.log("location", location);
   appContent.innerHTML = `<${findComponentName(location.pathname)} />`;
 }
 
