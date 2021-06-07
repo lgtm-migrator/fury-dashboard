@@ -1,36 +1,60 @@
 import { createBrowserHistory } from "history";
-import FuryDashboard from "./components/FuryDashboard/FuryDashboard";
+import { Module } from "./Components/Dashboard/Module";
+import FuryHeader from "./Components/Header/WebComponent";
+import FuryNav from "./Components/Nav/FuryNav";
+import { ModuleLoadingError } from "./Errors/ModuleLoadingError";
 import "./index.scss";
 
-window.customElements.define("fury-dashboard", FuryDashboard);
+async function init() {
+  try {
+    const DashboardModule = new Module().loader();
+    window.customElements.define("fury-dashboard", DashboardModule.default);
+    window.customElements.define("fury-header", FuryHeader); 
+    window.customElements.define("fury-nav", FuryNav);
+  } catch (err) {
+    if (err instanceof ModuleLoadingError) {
 
-let history = createBrowserHistory();
+    }
+  }
 
-const appContent = document.querySelector("#root");
+  let history = createBrowserHistory();
 
-const routes = {
-  "/": "div",
-  "/support": "fury-dashboard"
-};
+  const header = document.querySelector("#header");
+  const nav = document.querySelector("#nav");
+  const appContent = document.querySelector("#content");
+  const footer = document.querySelector("#footer");
 
-const findComponentName = (pathName: string) => {
-  console.log("pathname", pathName)
-  return routes[pathName] || "not found";
-};
+  header.innerHTML = `<fury-header />`;
+  nav.innerHTML = `<fury-nav />`;
 
-const updatePageComponent = (location) => {
-  console.log("location", location);
-  appContent.innerHTML = `<${findComponentName(location.pathname)} />`;
+  const routes = {
+    "/": "div",
+    "/support": "fury-dashboard"
+  };
+
+  const findComponentName = (pathName: string) => {
+    console.log("pathname", pathName)
+    return routes[pathName] || "not found";
+  };
+
+  const updatePageComponent = (location) => {
+    console.log("location", location);
+    appContent.innerHTML = `<${findComponentName(location.pathname)} />`;
+  }
+
+  history.listen(updatePageComponent);
+  updatePageComponent(window.location);
+
+  document.addEventListener("click", e => {
+    if ((e.target as HTMLAnchorElement).nodeName === "A") {
+      const href = (e.target as HTMLAnchorElement).getAttribute("href");
+      history.push(href);
+      console.log("cambio route");
+      e.preventDefault();
+    }
+  });
 }
 
-history.listen(updatePageComponent);
-updatePageComponent(window.location);
+init();
 
-document.addEventListener("click", e => {
-  if ((e.target as HTMLAnchorElement).nodeName === "A") {
-    const href = (e.target as HTMLAnchorElement).getAttribute("href");
-    history.push(href);
-    e.preventDefault();
-  }
-});
 
