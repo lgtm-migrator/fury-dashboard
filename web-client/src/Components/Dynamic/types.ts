@@ -6,6 +6,9 @@ export interface RemoteScript
 
 	scope: string;
 
+	/**
+	 * if the script should be loaded async
+	 */
 	async: boolean
 }
 
@@ -13,3 +16,4 @@ export interface Module
 {
 	default: CustomElementConstructor;
 }
+

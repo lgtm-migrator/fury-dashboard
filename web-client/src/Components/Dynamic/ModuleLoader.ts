@@ -1,20 +1,16 @@
-interface RemoteScript
-{
-	url: string;
-
-	module: string;
-
-	scope: string;
-}
-
+import { Module, RemoteScript } from './types';
 
 export abstract class ModuleLoader
 {
-	constructor(protected componentConfig: RemoteScript)
+	protected constructor(protected componentConfig: RemoteScript)
 	{
 	}
 
-	private async successHandler()
+	/**
+	 * successHandler is invoked when the script is successfully loaded
+	 * @protected
+	 */
+	protected async successHandler()
 	{
 		// Initializes the share scope. This fills it with known provided modules from this build and all remotes
 		// @ts-ignore
@@ -26,30 +22,64 @@ export abstract class ModuleLoader
 		// @ts-ignore
 		const factory = await window[this.componentConfig.scope].get(this.componentConfig.module);
 		const Module = factory();
-		// console.log('module', Module)
-		return {
-			error : null,
-			module: Module,
-		};
+
+		return Module;
 	};
 
 
-	protected abstract implementation(): any;
+	protected implementation(): Promise<Module>
+	{
+		return new Promise((resolve, reject) =>
+		{
+			if (!this.componentConfig.url)
+			{
+				return;
+			}
 
-	// si può fare override
-	protected errorModule(): any
+			const element = document.createElement('script');
+
+			element.src = this.componentConfig.url;
+			element.type = 'text/javascript';
+			element.async = this.componentConfig.async;
+
+			element.onload = () =>
+			{
+				console.log(`Dynamic Script Loaded: ${ this.componentConfig.url }`);
+				// modificare il dom a seguito del success
+				resolve(this.successHandler());
+
+			};
+
+			element.onerror = () =>
+			{
+				console.error(`Dynamic Script Error: ${ this.componentConfig.url }`);
+				// modificare il dom a seguito dell'errore
+				reject(this.errorHandler());
+			};
+
+			document.head.appendChild(element);
+		});
+
+	};
+
+	/**
+	 * errorHandler is invoked when the script loading fails.
+	 * @protected
+	 */
+	protected errorHandler(): Promise<Module>
 	{
 		// ritorna modulo d'errore
+		return null;
 	}
 
-	public loader()
+	public async loaderAsync(): Promise<CustomElementConstructor>
 	{
 		try
 		{
-			return this.implementation().default;
+			return (await this.implementation()).default;
 		} catch (e)
 		{
-			return this.errorModule().default;
+			return (await this.errorHandler()).default;
 		}
 
 	}
