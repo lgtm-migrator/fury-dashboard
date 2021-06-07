@@ -28,7 +28,10 @@ module.exports = {
   devServer: {
     port: 8082,
     publicPath: "/",
-    historyApiFallback: true,
+    historyApiFallback: {
+      rewrites: [{ from: /./, to: "/index.htm" }],
+    },
+    index: "index.htm",
   },
   // optimization: {
   //   minimize: false
@@ -122,9 +125,10 @@ module.exports = {
       },
     }),
     new HtmlWebpackPlugin({
-      template: "./public/index.html",
+      template: "./public/index.htm",
       favicon: "./public/favicon.ico",
       manifest: "./public/manifest.json",
+      filename: "index.htm",
     }),
     new webpack.DefinePlugin({
       "process.env": JSON.stringify(dotenv.parsed),
