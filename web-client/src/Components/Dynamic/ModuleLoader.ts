@@ -26,8 +26,17 @@ export abstract class ModuleLoader
 		return Module;
 	};
 
+	/**
+	 * errorHandler is invoked when the script loading fails.
+	 * @protected
+	 */
+	protected errorHandler(event: Event | string): Promise<Module>
+	{
+		// todo return a default error component
+		return null;
+	}
 
-	protected implementation(): Promise<Module>
+	private loadScriptAsync(): Promise<Module>
 	{
 		return new Promise((resolve, reject) =>
 		{
@@ -50,11 +59,11 @@ export abstract class ModuleLoader
 
 			};
 
-			element.onerror = () =>
+			element.onerror = (event) =>
 			{
 				console.error(`Dynamic Script Error: ${ this.componentConfig.url }`);
 				// modificare il dom a seguito dell'errore
-				reject(this.errorHandler());
+				reject(this.errorHandler(event));
 			};
 
 			document.head.appendChild(element);
@@ -62,25 +71,9 @@ export abstract class ModuleLoader
 
 	};
 
-	/**
-	 * errorHandler is invoked when the script loading fails.
-	 * @protected
-	 */
-	protected errorHandler(): Promise<Module>
-	{
-		// ritorna modulo d'errore
-		return null;
-	}
 
-	public async loaderAsync(): Promise<CustomElementConstructor>
+	public async loadElementConstructorAsync(): Promise<CustomElementConstructor>
 	{
-		try
-		{
-			return (await this.implementation()).default;
-		} catch (e)
-		{
-			return (await this.errorHandler()).default;
-		}
-
+		return (await this.loadScriptAsync()).default;
 	}
 }

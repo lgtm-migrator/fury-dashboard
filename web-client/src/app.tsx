@@ -7,7 +7,7 @@ import "./index.scss";
 
 async function init() {
   try {
-    const DashboardModule = await (new Module()).loaderAsync();
+    const DashboardModule = await (new Module()).loadElementConstructorAsync();
     window.customElements.define("fury-dashboard", DashboardModule);
     window.customElements.define("fury-header", FuryHeader);
     window.customElements.define("fury-nav", FuryNav);
