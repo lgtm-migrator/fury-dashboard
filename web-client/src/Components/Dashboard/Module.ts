@@ -12,8 +12,7 @@ export class Module extends ModuleLoader<FuryDashboardParams> {
   
   protected getConfig(conf: DashboardConfig): RemoteFederatedModule<FuryDashboardParams> {
     {
-      console.log(conf, "dashboardconf")
-      
+
       window.APP_CONFIG = {
         APP_ENDPOINT: this.conf.REMOTE_COMPONENTS.furyconnectswitchui.Params.apiurl,
       };
