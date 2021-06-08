@@ -1,14 +1,17 @@
 import {createBrowserHistory} from 'history';
-import {Module} from './Components/Dashboard/Module';
+import {Module as DashboardModule} from './Components/Dashboard/Module';
 import FuryHeader from './Components/Header/WebComponent';
 import FuryNav from './Components/Nav/FuryNav';
 import './index.scss';
+import {DashboardConfig} from "./Services/ConfigurationLoader/DashboardConfig";
 
 async function init() {
   
+  await DashboardConfig.createDashboardConfigSingletonAsync();
+  
   try {
-    const DashboardModule = await (new Module()).loadElementConstructorAsync();
-    window.customElements.define('fury-dashboard', DashboardModule);
+    const dashboardModuleComponent = await (new DashboardModule()).loadElementConstructorAsync();
+    window.customElements.define('fury-dashboard', dashboardModuleComponent);
     window.customElements.define('fury-header', FuryHeader);
     window.customElements.define('fury-nav', FuryNav);
   } catch {

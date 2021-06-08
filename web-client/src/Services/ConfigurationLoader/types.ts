@@ -32,5 +32,5 @@ export interface Configuration {
 
 
 export interface ConfigurationLoader {
-  loadConfigurationAsync(): Configuration
+  loadConfigurationAsync(): Promise<Configuration>
 }

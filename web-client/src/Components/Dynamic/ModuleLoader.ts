@@ -10,7 +10,8 @@ export abstract class ModuleLoader<T> {
     furyclustermap: "furyclustermap"
   }
   
-  protected readonly conf: DashboardConfig = new DashboardConfig();
+  protected readonly conf: DashboardConfig = DashboardConfig.DASHBOARD_CONFIG_SINGLETON;
+  
   protected componentConfig: RemoteFederatedModule<T>
   
   protected constructor(protected moduleKey: string) {
@@ -24,7 +25,7 @@ export abstract class ModuleLoader<T> {
   }
   
   protected getConfig(conf: DashboardConfig): RemoteFederatedModule<T> {
-    return conf[this.moduleKey]
+    return conf.REMOTE_COMPONENTS[this.moduleKey]
   };
   
   /**

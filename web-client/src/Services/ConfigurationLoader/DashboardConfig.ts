@@ -5,9 +5,16 @@ export class DashboardConfig {
   
   public readonly DASHBOARD_ENDPOINT: string
   public readonly REMOTE_COMPONENTS: RemoteComponents
+  public static DASHBOARD_CONFIG_SINGLETON: DashboardConfig = null;
   
-  constructor() {
-    const env = window.DASHBOARD_CONFIG ?? process.env.DASHBOARD_CONFIG;
+  private constructor(conf) {
+    
+    this.DASHBOARD_ENDPOINT = conf.DASHBOARD_ENDPOINT;
+    this.REMOTE_COMPONENTS = conf.REMOTE_COMPONENTS;
+  }
+  
+  private static fromEnvOrWindow(): DashboardConfig {
+    const env = process.env.DASHBOARD_CONFIG;
     
     if (!env) {
       throw Error("no DASHBOARD_CONFIG found")
@@ -19,9 +26,31 @@ export class DashboardConfig {
       throw Error("missing configuration components")
     }
     
-    this.DASHBOARD_ENDPOINT = dashboardConfig.DASHBOARD_ENDPOINT;
+    return new DashboardConfig(dashboardConfig);
+  }
+  
+  private static async fromRemote(basePath: string = ""): Promise<DashboardConfig> {
     
-    this.REMOTE_COMPONENTS = dashboardConfig.REMOTE_COMPONENTS;
+    const res = await fetch("/config/test");
+    
+    const data = await res.json();
+    
+    return new DashboardConfig(data);
+  }
+  
+  private static fromFile(): DashboardConfig {
+    return null
+  }
+  
+  public static async createDashboardConfigSingletonAsync(): Promise<DashboardConfig> {
+    if (Boolean(process.env.SERVER_OFFLINE)) {
+      DashboardConfig.DASHBOARD_CONFIG_SINGLETON = DashboardConfig.fromEnvOrWindow();
+    } else {
+      DashboardConfig.DASHBOARD_CONFIG_SINGLETON = await DashboardConfig.fromRemote(process.env.SERVER_BASE_PATH ?? "")
+    }
+    
+    return DashboardConfig.DASHBOARD_CONFIG_SINGLETON
+    
   }
   
 }
