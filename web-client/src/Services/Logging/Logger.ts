@@ -1,32 +1,23 @@
-import winston from 'winston';
-import { Logger as LoggerType } from 'winston';
-
+import log, { levels, LogLevelDesc } from 'loglevel';
 
 export class Logger {
 
-	public readonly instance: LoggerType;
+	public readonly instance: log.Logger;
 
-	public static readonly singleton: LoggerType = new Logger().instance;
+	public static readonly singleton: log.Logger = new Logger("singleton").instance;
 
-	constructor() {
-		this.instance = winston.createLogger({
-			level: Logger.getLogLevel(),
-			//format: winston.format.json(),
-		});
-
-		if (process.env.NODE_ENV !== 'production') {
-			this.instance.add(new winston.transports.Console({
-				format: winston.format.simple(),
-			}));
-		}
+	private constructor(name: string) {
+		this.instance = log.getLogger(name);
+		
+		this.instance.setLevel(Logger.getLogLevel());
 	}
 
-	private static getLogLevel(): string {
+	private static getLogLevel(): LogLevelDesc {
 		switch (process.env.APP_ENV) {
 			case 'development':
-				return 'debug';
+				return log.levels.DEBUG;
 			default:
-				return 'info';
+				return log.levels.WARN;
 		}
 	}
 }

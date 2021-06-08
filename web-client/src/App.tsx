@@ -7,7 +7,6 @@ import { DashboardConfig } from './Services/ConfigurationLoader/DashboardConfig'
 import { Logger } from './Services/Logging/Logger';
 
 async function init() {
-
 	await DashboardConfig.createDashboardConfigSingletonAsync();
 
 	const dashboardModuleComponent = await (new DashboardModule()).loadElementConstructorAsync();
@@ -32,12 +31,12 @@ async function init() {
 	};
 
 	const findComponentName = (pathName: string) => {
-		console.log('pathname', pathName);
+    Logger.singleton.debug('pathname', pathName);
 		return routes[pathName] || 'not found';
 	};
 
 	const updatePageComponent = (location) => {
-		console.log('location', location);
+		Logger.singleton.debug('location', location);
 		appContent.innerHTML = `<${ findComponentName(location.pathname) } />`;
 	};
 
@@ -48,7 +47,7 @@ async function init() {
 		if ((e.target as HTMLAnchorElement).nodeName === 'A') {
 			const href = (e.target as HTMLAnchorElement).getAttribute('href');
 			history.push(href);
-			console.log('cambio route');
+			Logger.singleton.debug('cambio route');
 			e.preventDefault();
 		}
 	});

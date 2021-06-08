@@ -38,6 +38,16 @@ module.exports = {
     minimize: false
   },
   resolve: {
+    fallback: {
+      "util": false,
+      "buffer": false,
+      "path": false,
+      "zlib": false,
+      "os": false,
+      "fs": false,
+      "http": false,
+      "https": false
+    },
     extensions: [".ts", ".tsx", ".jsx", ".js", ".json"],
   },
   module: {
