@@ -31,10 +31,9 @@ export class DashboardConfig {
   
   private static async fromRemote(basePath: string = ""): Promise<DashboardConfig> {
     
-    const res = await fetch("/config/test");
-    
+    const res = await fetch(`${basePath}/config/test`);
     const data = await res.json();
-    
+
     return new DashboardConfig(data);
   }
   
@@ -43,7 +42,7 @@ export class DashboardConfig {
   }
   
   public static async createDashboardConfigSingletonAsync(): Promise<DashboardConfig> {
-    if (Boolean(process.env.SERVER_OFFLINE)) {
+    if (process.env.SERVER_OFFLINE === "true") {
       DashboardConfig.DASHBOARD_CONFIG_SINGLETON = DashboardConfig.fromEnvOrWindow();
     } else {
       DashboardConfig.DASHBOARD_CONFIG_SINGLETON = await DashboardConfig.fromRemote(process.env.SERVER_BASE_PATH ?? "")
