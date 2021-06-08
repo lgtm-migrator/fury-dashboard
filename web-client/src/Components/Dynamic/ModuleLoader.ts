@@ -1,19 +1,18 @@
 import { FederatedModule } from './types';
-import { RemoteFederatedModule } from '../../Services/ConfigurationLoader/types';
+import {FuryDashboardParams, RemoteFederatedModule} from '../../Services/ConfigurationLoader/types';
+import {DashboardConfig} from "../../Services/ConfigurationLoader/DashboardConfig";
 
 export abstract class ModuleLoader<T>
 {
-	protected constructor(protected componentConfig: RemoteFederatedModule<T>)
+	protected readonly conf: DashboardConfig = new DashboardConfig();
+	protected componentConfig: RemoteFederatedModule<T>
+	
+	protected constructor()
 	{
-		if (
-			!componentConfig.url ||
-			!componentConfig.module ||
-			!componentConfig.scope
-		)
-		{
-			throw Error('Missing required params in component config');
-		}
+		this.componentConfig = this.getConfig(this.conf)
 	}
+	
+	protected abstract getConfig(conf: DashboardConfig): RemoteFederatedModule<T>;
 
 	/**
 	 * successHandler is invoked when the script is successfully loaded
@@ -24,12 +23,12 @@ export abstract class ModuleLoader<T>
 		// Initializes the share scope. This fills it with known provided modules from this build and all remotes
 		// @ts-ignore
 		await __webpack_init_sharing__('default');
-		const container = window[this.componentConfig.scope]; // or get the container somewhere else
+		const container = window[this.componentConfig.Scope]; // or get the container somewhere else
 		// Initialize the container, it may provide shared modules
 		// @ts-ignore
 		await container.init(__webpack_share_scopes__.default);
 		// @ts-ignore
-		const factory = await window[this.componentConfig.scope].get(this.componentConfig.module);
+		const factory = await window[this.componentConfig.Scope].get(this.componentConfig.Module);
 		const Module = factory();
 
 		return Module;
@@ -51,13 +50,13 @@ export abstract class ModuleLoader<T>
 		{
 			const element = document.createElement('script');
 
-			element.src = this.componentConfig.url;
+			element.src = this.componentConfig.Url;
 			element.type = 'text/javascript';
 			element.async = true;
 
 			element.onload = () =>
 			{
-				console.log(`Dynamic Script Loaded: ${ this.componentConfig.url }`);
+				console.log(`Dynamic Script Loaded: ${ this.componentConfig.Url }`);
 				// modificare il dom a seguito del success
 				resolve(this.successHandler());
 
@@ -65,7 +64,7 @@ export abstract class ModuleLoader<T>
 
 			element.onerror = (event) =>
 			{
-				console.error(`Dynamic Script Error: ${ this.componentConfig.url }`);
+				console.error(`Dynamic Script Error: ${ this.componentConfig.Url }`);
 				// modificare il dom a seguito dell'errore
 				reject(this.errorHandler(event));
 			};

@@ -1,20 +1,20 @@
 export interface FuryDashboardParams
 {
-	apiUrl: string
+	apiurl: string
 }
 
 export interface RemoteFederatedModule<T extends {}>
 {
-	readonly scope: string
+	readonly Scope: string
 
-	readonly module: string
+	readonly Module: string
 
-	readonly url: string
+	readonly Url: string
 
-	readonly params: T
+	readonly Params: T
 }
 
-interface RemoteComponents
+export interface RemoteComponents
 {
 	furyconnectswitchui?: RemoteFederatedModule<FuryDashboardParams>
 }
