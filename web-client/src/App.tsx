@@ -7,13 +7,15 @@ import './index.scss';
 async function init()
 {
 
-	const response = await fetch('/config/test');
-	console.log(response.body);
-
+	// const response = await fetch('/config/test');
+	// console.log(response.body);
+try {
 	const DashboardModule = await (new Module()).loadElementConstructorAsync();
 	window.customElements.define('fury-dashboard', DashboardModule);
 	window.customElements.define('fury-header', FuryHeader);
 	window.customElements.define('fury-nav', FuryNav);
+} catch {}
+
 
 	const history = createBrowserHistory();
 

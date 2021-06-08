@@ -5,6 +5,7 @@
   "scripts": {
     "start": "serve dist -p 3001",
     "build": "webpack --mode production",
+    "webpack-dev": "webpack serve -o ../dist/",
     "build-to-server": "webpack --mode production -o ../static/",
     "dev": "concurrently \"webpack --watch\" \"serve dist -p 3001\""
   },

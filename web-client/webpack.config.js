@@ -22,6 +22,7 @@ const automaticVendorFederation = AutomaticVendorFederation({
 });
 module.exports = {
   mode: "development",
+  devtool: 'inline-source-map',
   output: {
     publicPath: "/",
   },
@@ -33,9 +34,9 @@ module.exports = {
     },
     index: "index.htm",
   },
-  // optimization: {
-  //   minimize: false
-  // },
+  optimization: {
+    minimize: false
+  },
   resolve: {
     extensions: [".ts", ".tsx", ".jsx", ".js", ".json"],
   },
