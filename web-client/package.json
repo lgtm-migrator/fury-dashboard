@@ -15,7 +15,8 @@
     "history": "^5.0.0",
     "react": "17.0.2",
     "react-dom": "17.0.2",
-    "react-to-webcomponent": "^1.5.1"
+    "react-to-webcomponent": "^1.5.1",
+    "winston": "^3.3.3"
   },
   "devDependencies": {
     "@babel/core": "7.13.15",
