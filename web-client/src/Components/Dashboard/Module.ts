@@ -1,8 +1,8 @@
 import { ModuleLoader } from '../Dynamic/ModuleLoader';
-import { RemoteScript } from '../Dynamic/types';
+import { FuryDashboardParams, RemoteFederatedModule } from '../../Services/ConfigurationLoader/types';
 
 
-export class Module extends ModuleLoader
+export class Module extends ModuleLoader<FuryDashboardParams>
 {
 
 	constructor()
@@ -11,7 +11,7 @@ export class Module extends ModuleLoader
 	}
 
 
-	private static getFuryDashboardRemoteModuleData(): RemoteScript
+	private static getFuryDashboardRemoteModuleData(): RemoteFederatedModule<FuryDashboardParams>
 	{
 		{
 			const remoteFuryConnectSwitchUIConfig = window.DASHBOARD_CONFIG
@@ -28,7 +28,9 @@ export class Module extends ModuleLoader
 				url   : remoteFuryConnectSwitchUIConfig.Url,
 				scope : remoteFuryConnectSwitchUIConfig.Scope,
 				module: remoteFuryConnectSwitchUIConfig.Module,
-				async : true,
+				params: {
+					apiUrl: remoteFuryConnectSwitchUIConfig.Params.apiurl,
+				},
 			};
 		}
 	}

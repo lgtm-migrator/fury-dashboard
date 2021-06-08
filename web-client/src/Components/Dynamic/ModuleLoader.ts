@@ -1,17 +1,18 @@
-import { Module, RemoteScript } from './types';
+import { FederatedModule } from './types';
+import { RemoteFederatedModule } from '../../Services/ConfigurationLoader/types';
 
-export abstract class ModuleLoader
+export abstract class ModuleLoader<T>
 {
-	protected constructor(protected componentConfig: RemoteScript)
+	protected constructor(protected componentConfig: RemoteFederatedModule<T>)
 	{
-    if (
-      !componentConfig.url ||
-      !componentConfig.module ||
-      !componentConfig.scope ||
-      !componentConfig.async
-    ) {
-      throw Error("Missing required params in component config");
-    }
+		if (
+			!componentConfig.url ||
+			!componentConfig.module ||
+			!componentConfig.scope
+		)
+		{
+			throw Error('Missing required params in component config');
+		}
 	}
 
 	/**
@@ -38,13 +39,13 @@ export abstract class ModuleLoader
 	 * errorHandler is invoked when the script loading fails.
 	 * @protected
 	 */
-	protected errorHandler(event: Event | string): Promise<Module>
+	protected errorHandler(event: Event | string): Promise<FederatedModule>
 	{
 		// todo return a default error component
 		return null;
 	}
 
-	private loadScriptAsync(): Promise<Module>
+	private loadScriptAsync(): Promise<FederatedModule>
 	{
 		return new Promise((resolve, reject) =>
 		{
@@ -52,7 +53,7 @@ export abstract class ModuleLoader
 
 			element.src = this.componentConfig.url;
 			element.type = 'text/javascript';
-			element.async = this.componentConfig.async;
+			element.async = true;
 
 			element.onload = () =>
 			{

@@ -1,58 +1,60 @@
-import { createBrowserHistory } from "history";
-import { Module } from "./Components/Dashboard/Module";
-import FuryHeader from "./Components/Header/WebComponent";
-import FuryNav from "./Components/Nav/FuryNav";
-import { ModuleLoadingError } from "./Errors/ModuleLoadingError";
-import "./index.scss";
+import { createBrowserHistory } from 'history';
+import { Module } from './Components/Dashboard/Module';
+import FuryHeader from './Components/Header/WebComponent';
+import FuryNav from './Components/Nav/FuryNav';
+import './index.scss';
 
-async function init() {
-  try {
-    const DashboardModule = await (new Module()).loadElementConstructorAsync();
-    window.customElements.define("fury-dashboard", DashboardModule);
-    window.customElements.define("fury-header", FuryHeader);
-    window.customElements.define("fury-nav", FuryNav);
-  } catch (err) {
-    if (err instanceof ModuleLoadingError) {
+async function init()
+{
 
-    }
-  }
+	const response = await fetch('/config/test');
+	console.log(response.body);
 
-  let history = createBrowserHistory();
+	const DashboardModule = await (new Module()).loadElementConstructorAsync();
+	window.customElements.define('fury-dashboard', DashboardModule);
+	window.customElements.define('fury-header', FuryHeader);
+	window.customElements.define('fury-nav', FuryNav);
 
-  const header = document.querySelector("#header");
-  const nav = document.querySelector("#nav");
-  const appContent = document.querySelector("#content");
-  const footer = document.querySelector("#footer");
+	const history = createBrowserHistory();
 
-  header.innerHTML = `<fury-header />`;
-  nav.innerHTML = `<fury-nav />`;
+	const header = document.querySelector('#header');
+	const nav = document.querySelector('#nav');
+	const appContent = document.querySelector('#content');
+	const footer = document.querySelector('#footer');
 
-  const routes = {
-    "/": "div",
-    "/support": "fury-dashboard"
-  };
+	header.innerHTML = `<fury-header />`;
+	nav.innerHTML = `<fury-nav />`;
 
-  const findComponentName = (pathName: string) => {
-    console.log("pathname", pathName)
-    return routes[pathName] || "not found";
-  };
+	const routes = {
+		'/'       : 'div',
+		'/support': 'fury-dashboard',
+	};
 
-  const updatePageComponent = (location) => {
-    console.log("location", location);
-    appContent.innerHTML = `<${findComponentName(location.pathname)} />`;
-  }
+	const findComponentName = (pathName: string) =>
+	{
+		console.log('pathname', pathName);
+		return routes[pathName] || 'not found';
+	};
 
-  history.listen(updatePageComponent);
-  updatePageComponent(window.location);
+	const updatePageComponent = (location) =>
+	{
+		console.log('location', location);
+		appContent.innerHTML = `<${ findComponentName(location.pathname) } />`;
+	};
 
-  document.addEventListener("click", e => {
-    if ((e.target as HTMLAnchorElement).nodeName === "A") {
-      const href = (e.target as HTMLAnchorElement).getAttribute("href");
-      history.push(href);
-      console.log("cambio route");
-      e.preventDefault();
-    }
-  });
+	history.listen(updatePageComponent);
+	updatePageComponent(window.location);
+
+	document.addEventListener('click', e =>
+	{
+		if ((e.target as HTMLAnchorElement).nodeName === 'A')
+		{
+			const href = (e.target as HTMLAnchorElement).getAttribute('href');
+			history.push(href);
+			console.log('cambio route');
+			e.preventDefault();
+		}
+	});
 }
 
 init();

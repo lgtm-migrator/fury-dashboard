@@ -46,6 +46,17 @@ func main() {
 	corsConfig.AllowAllOrigins = true
 	appConfig := config.GetYamlConf()
 	router.Use(cors.New(corsConfig))
+
+	router.GET("/config/test", func(context *gin.Context) {
+
+		type response struct {
+			Data config.YamlConfig
+		}
+
+
+		context.JSON(200, &response{Data: *appConfig})
+	})
+
 	router.GET("/config/config.js", func(c *gin.Context) {
 		c.String(http.StatusOK, config.GetFrontEndConfigFile(*appConfig))
 	})

@@ -49,6 +49,8 @@ func GetYamlConf() *YamlConfig {
 	return &yamlConfig
 }
 
+
+
 func GetFrontEndConfigFile(cfg YamlConfig) string {
 	config, err := json.Marshal(cfg.RemoteComponents)
 
