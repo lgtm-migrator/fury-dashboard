@@ -4,22 +4,22 @@ import { RemoteComponents } from './types';
 export class DashboardConfig
 {
 
-	public readonly DASHBOARD_ENDPOINT: string;
+	public readonly DASHBOARD_ENDPOINT?: string;
 
 	public readonly REMOTE_COMPONENTS: RemoteComponents;
 
 	public static DASHBOARD_CONFIG_SINGLETON: DashboardConfig = null;
 
-	private constructor(conf: { DASHBOARD_ENDPOINT: any, REMOTE_COMPONENTS: any })
+	private constructor(conf: { DASHBOARD_ENDPOINT: any, RemoteComponents: any })
 	{
 
-		if (!conf.DASHBOARD_ENDPOINT || conf.REMOTE_COMPONENTS)
+		if (!conf.RemoteComponents)
 		{
 			throw new Error('missing dashboard config data');
 		}
 
 		this.DASHBOARD_ENDPOINT = conf.DASHBOARD_ENDPOINT;
-		this.REMOTE_COMPONENTS = conf.REMOTE_COMPONENTS;
+		this.REMOTE_COMPONENTS = conf.RemoteComponents;
 	}
 
 	private static fromEnvOrWindow(): DashboardConfig

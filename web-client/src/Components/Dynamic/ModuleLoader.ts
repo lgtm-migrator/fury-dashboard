@@ -1,7 +1,7 @@
-import {FederatedModule} from './types';
 import {RemoteFederatedModule} from '../../Services/ConfigurationLoader/types';
 import {DashboardConfig} from "../../Services/ConfigurationLoader/DashboardConfig";
 import {NoModuleConfigurationError} from "../../Errors/NoModuleConfigurationError";
+import ErrorDefaultWebComp from '../Errors/Default';
 
 export abstract class ModuleLoader<T> {
   
@@ -44,19 +44,19 @@ export abstract class ModuleLoader<T> {
     const factory = await window[this.componentConfig.Scope].get(this.componentConfig.Module);
     const Module = factory();
     
-    return Module;
+    return Module.default;
   };
   
   /**
    * errorHandler is invoked when the script loading fails.
    * @protected
    */
-  protected errorHandler(event: Event | string): Promise<FederatedModule> {
+  protected async errorHandler(event: Event | string): Promise<CustomElementConstructor> {
     // todo return a default error component
-    return null;
+	return ErrorDefaultWebComp;
   }
   
-  private loadScriptAsync(): Promise<FederatedModule> {
+  private loadScriptAsync(): Promise<CustomElementConstructor> {
     return new Promise((resolve, reject) => {
       const element = document.createElement('script');
       
@@ -74,7 +74,7 @@ export abstract class ModuleLoader<T> {
       element.onerror = (event) => {
         console.error(`Dynamic Script Error: ${this.componentConfig.Url}`);
         // modificare il dom a seguito dell'errore
-        reject(this.errorHandler(event));
+        resolve(this.errorHandler(event));
       };
       
       document.head.appendChild(element);
@@ -83,7 +83,7 @@ export abstract class ModuleLoader<T> {
   };
   
   
-  public async loadElementConstructorAsync(): Promise<CustomElementConstructor> {
-    return (await this.loadScriptAsync()).default;
+  public async loadElementConstructorAsync(): Promise<CustomElementConstructor>{
+    return (await this.loadScriptAsync());
   }
 }

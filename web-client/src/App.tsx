@@ -9,14 +9,11 @@ async function init() {
   
   await DashboardConfig.createDashboardConfigSingletonAsync();
   
-  try {
-    const dashboardModuleComponent = await (new DashboardModule()).loadElementConstructorAsync();
-    window.customElements.define('fury-dashboard', dashboardModuleComponent);
-    window.customElements.define('fury-header', FuryHeader);
-    window.customElements.define('fury-nav', FuryNav);
-  } catch {
-  }
-  
+	const dashboardModuleComponent = await (new DashboardModule()).loadElementConstructorAsync();
+
+	window.customElements.define('fury-dashboard', dashboardModuleComponent);
+	window.customElements.define('fury-header', FuryHeader);
+	window.customElements.define('fury-nav', FuryNav);
   
   const history = createBrowserHistory();
   
