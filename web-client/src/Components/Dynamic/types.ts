@@ -1,19 +1,19 @@
 export interface RemoteScript
 {
-	url: string;
+	readonly url: string;
 
-	module: string;
+	readonly module: string;
 
-	scope: string;
+	readonly scope: string;
 
 	/**
 	 * if the script should be loaded async
 	 */
-	async: boolean
+	 readonly async: boolean
 }
 
 export interface Module
 {
-	default: CustomElementConstructor;
+	readonly default: CustomElementConstructor;
 }
 

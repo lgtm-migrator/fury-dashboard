@@ -4,6 +4,14 @@ export abstract class ModuleLoader
 {
 	protected constructor(protected componentConfig: RemoteScript)
 	{
+    if (
+      !componentConfig.url ||
+      !componentConfig.module ||
+      !componentConfig.scope ||
+      !componentConfig.async
+    ) {
+      throw Error("Missing required params in component config");
+    }
 	}
 
 	/**
@@ -40,11 +48,6 @@ export abstract class ModuleLoader
 	{
 		return new Promise((resolve, reject) =>
 		{
-			if (!this.componentConfig.url)
-			{
-				return;
-			}
-
 			const element = document.createElement('script');
 
 			element.src = this.componentConfig.url;
