@@ -6,29 +6,18 @@ import {NoModuleConfigurationError} from "../../Errors/NoModuleConfigurationErro
 
 export class Module extends ModuleLoader<FuryDashboardParams> {
   
+  constructor() {
+    super(ModuleLoader.moduleNames.furyconnectswitchui);
+  }
   
   protected getConfig(conf: DashboardConfig): RemoteFederatedModule<FuryDashboardParams> {
     {
       
-      if (!this.conf.REMOTE_COMPONENTS.furyconnectswitchui) {
-        throw new NoModuleConfigurationError("fury-dashboard", conf)
-      }
-      
-      const remoteFuryConnectSwitchUIConfig = this.conf.REMOTE_COMPONENTS.furyconnectswitchui
-      
-      
       window.APP_CONFIG = {
-        APP_ENDPOINT: remoteFuryConnectSwitchUIConfig.Params.apiurl,
+        APP_ENDPOINT: this.conf.REMOTE_COMPONENTS.furyconnectswitchui.Params.apiurl,
       };
       
-      return {
-        Url: remoteFuryConnectSwitchUIConfig.Url,
-        Scope: remoteFuryConnectSwitchUIConfig.Scope,
-        Module: remoteFuryConnectSwitchUIConfig.Module,
-        Params: {
-          apiurl: remoteFuryConnectSwitchUIConfig.Params.apiurl,
-        },
-      };
+      return super.getConfig(conf);
     }
   }
   

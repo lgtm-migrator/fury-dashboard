@@ -1,36 +1,36 @@
-export interface FuryDashboardParams
-{
-	apiurl: string
+export interface FuryDashboardParams {
+  apiurl: string
 }
 
-export interface RemoteFederatedModule<T extends {}>
-{
-	readonly Scope: string
-
-	readonly Module: string
-
-	readonly Url: string
-
-	readonly Params: T
+export interface ClusterMapParams {
+  apiurl: string
+  clientName: string
 }
 
-export interface RemoteComponents
-{
-	furyconnectswitchui?: RemoteFederatedModule<FuryDashboardParams>
+export interface RemoteFederatedModule<T extends {}> {
+  readonly Scope: string
+  
+  readonly Module: string
+  
+  readonly Url: string
+  
+  readonly Params: T
 }
 
-export interface Configuration
-{
-	listener: string
+export interface RemoteComponents {
+  furyconnectswitchui?: RemoteFederatedModule<FuryDashboardParams>
+}
 
-	externalEndpoint: string
-
-	remoteComponents: RemoteComponents
-
+export interface Configuration {
+  listener: string
+  
+  externalEndpoint: string
+  
+  remoteComponents: RemoteComponents
+  
 }
 
 
-export interface ConfigurationLoader
-{
-	loadConfigurationAsync(): Configuration
+export interface ConfigurationLoader {
+  loadConfigurationAsync(): Configuration
 }
