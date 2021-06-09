@@ -6,6 +6,9 @@ interface Associations {
 	componentName: string
 }
 
+/**
+ * Contains the constants for the Modules
+ */
 export class ModuleConstants {
 
 	/**
@@ -17,6 +20,9 @@ export class ModuleConstants {
 		furyclustermap     : 'furyclustermap',
 	};
 
+	/**
+	 * Assigns each Module to a route
+	 */
 	public static routeAssociations: Associations[] = [
 		{
 			yamlComponentName: ModuleConstants.names.furyconnectswitchui,
