@@ -1,68 +1,66 @@
-import { RemoteComponents } from './types';
+import { RemoteComponents } from "./types";
 
+export class DashboardConfig {
+  public readonly DASHBOARD_ENDPOINT?: string;
 
-export class DashboardConfig
-{
+  public readonly REMOTE_COMPONENTS: RemoteComponents;
 
-	public readonly DASHBOARD_ENDPOINT?: string;
+  public static DASHBOARD_CONFIG_SINGLETON: DashboardConfig = null;
 
-	public readonly REMOTE_COMPONENTS: RemoteComponents;
+  private constructor(conf: {
+    DASHBOARD_ENDPOINT: any;
+    RemoteComponents: any;
+  }) {
+    console.log(conf)
+    if (!conf.RemoteComponents) {
+      throw new Error("missing dashboard config data");
+    }
 
-	public static DASHBOARD_CONFIG_SINGLETON: DashboardConfig = null;
+    this.DASHBOARD_ENDPOINT = conf.DASHBOARD_ENDPOINT;
+    this.REMOTE_COMPONENTS = conf.RemoteComponents;
+  }
 
-	private constructor(conf: { DASHBOARD_ENDPOINT: any, RemoteComponents: any })
-	{
+  private static fromEnvOrWindow(): DashboardConfig {
+    const env = process.env.DASHBOARD_CONFIG;
 
-		if (!conf.RemoteComponents)
-		{
-			throw new Error('missing dashboard config data');
-		}
+    if (!env) {
+      throw Error("no DASHBOARD_CONFIG found");
+    }
 
-		this.DASHBOARD_ENDPOINT = conf.DASHBOARD_ENDPOINT;
-		this.REMOTE_COMPONENTS = conf.RemoteComponents;
-	}
+    const dashboardConfig = JSON.parse(process.env.DASHBOARD_CONFIG);
 
-	private static fromEnvOrWindow(): DashboardConfig
-	{
-		const env = process.env.DASHBOARD_CONFIG;
+    if (
+      !dashboardConfig.DASHBOARD_ENDPOINT ||
+      !dashboardConfig.RemoteComponents
+    ) {
+      throw Error("missing configuration components");
+    }
 
-		if (!env) {
-			throw Error('no DASHBOARD_CONFIG found');
-		}
+    return new DashboardConfig(dashboardConfig);
+  }
 
-		const dashboardConfig = JSON.parse(process.env.DASHBOARD_CONFIG);
+  private static async fromRemote(
+    basePath: string = ""
+  ): Promise<DashboardConfig> {
+    const res = await fetch(`${basePath}/config/test`);
+    const data = await res.json();
 
-		if (!dashboardConfig.DASHBOARD_ENDPOINT || !dashboardConfig.REMOTE_COMPONENTS) {
-			throw Error('missing configuration components');
-		}
+    return new DashboardConfig(data.Data);
+  }
 
-		return new DashboardConfig(dashboardConfig);
-	}
+  private static fromFile(): DashboardConfig {
+    return null;
+  }
 
-	private static async fromRemote(basePath: string = ''): Promise<DashboardConfig>
-	{
+  public static async createDashboardConfigSingletonAsync(): Promise<DashboardConfig> {
+    if (process.env.SERVER_OFFLINE === "true") {
+      DashboardConfig.DASHBOARD_CONFIG_SINGLETON =
+        DashboardConfig.fromEnvOrWindow();
+    } else {
+      DashboardConfig.DASHBOARD_CONFIG_SINGLETON =
+        await DashboardConfig.fromRemote(process.env.SERVER_BASE_PATH ?? "");
+    }
 
-		const res = await fetch(`${ basePath }/config/test`);
-		const data = await res.json();
-
-		return new DashboardConfig(data.Data);
-	}
-
-	private static fromFile(): DashboardConfig
-	{
-		return null;
-	}
-
-	public static async createDashboardConfigSingletonAsync(): Promise<DashboardConfig>
-	{
-		if (process.env.SERVER_OFFLINE === 'true') {
-			DashboardConfig.DASHBOARD_CONFIG_SINGLETON = DashboardConfig.fromEnvOrWindow();
-		} else {
-			DashboardConfig.DASHBOARD_CONFIG_SINGLETON = await DashboardConfig.fromRemote(process.env.SERVER_BASE_PATH ?? '');
-		}
-
-		return DashboardConfig.DASHBOARD_CONFIG_SINGLETON;
-
-	}
-
+    return DashboardConfig.DASHBOARD_CONFIG_SINGLETON;
+  }
 }
