@@ -11,7 +11,6 @@ export class DashboardConfig {
     DASHBOARD_ENDPOINT: any;
     RemoteComponents: any;
   }) {
-    console.log(conf)
     if (!conf.RemoteComponents) {
       throw new Error("missing dashboard config data");
     }
