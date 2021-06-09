@@ -7,13 +7,12 @@ import './index.scss';
 import { DashboardConfig } from './Services/ConfigurationLoader/DashboardConfig';
 import { Router } from './Services/Routing/Router';
 import { HTMLRetriever } from './Services/HTMLRetriever';
+import { SighupStorage } from './Services/SighupStorage';
 
 
 async function init() {
-	window.SIGHUP = {
-		modules: {},
-		language: (localStorage.getItem("SIGHUP_LANGUAGE") as "IT" | "EN") ?? "IT",
-	};
+
+	SighupStorage.singleton.bootstrapState();
 
 	await DashboardConfig.createDashboardConfigSingletonAsync();
 

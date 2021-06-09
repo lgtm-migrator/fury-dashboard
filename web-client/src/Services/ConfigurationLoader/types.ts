@@ -1,38 +1,48 @@
 export interface FuryDashboardParams {
-  apiurl: string
+	apiurl: string
 }
 
 export interface ClusterMapParams {
-  apiurl: string
-  clientName: string
+	apiurl: string
+
+	clientName: string
 }
 
 export interface RemoteFederatedModule<T extends {}> {
-  readonly Scope: string
-  
-  readonly Module: string
-  
-  readonly Url: string
-  
-  readonly Params: T
+	readonly Scope: string
+
+	readonly Module: string
+
+	readonly Url: string
+
+	readonly Params: T
 }
 
 export interface RemoteComponents {
-  [key: string]: any
-  furyconnectswitchui?: RemoteFederatedModule<FuryDashboardParams>
+	[key: string]: any
+
+	furyconnectswitchui?: RemoteFederatedModule<FuryDashboardParams>
 }
 
 export interface Configuration {
-  listener: string
-  
-  externalEndpoint: string
-  
-  remoteComponents: RemoteComponents
-  
+	listener: string
+
+	externalEndpoint: string
+
+	remoteComponents: RemoteComponents
+
 }
 
 export interface ConfigurationLoader {
-  loadConfigurationAsync(): Promise<Configuration>
+	loadConfigurationAsync(): Promise<Configuration>
+}
+
+export type Language = 'IT' | 'EN'
+
+export interface SighupState {
+	modules: RemoteComponents,
+
+	language: Language
 }
 
 declare global {
@@ -52,10 +62,7 @@ declare global {
 			};
 		};
 
-    SIGHUP: {
-      modules: RemoteComponents,
-      language: "IT" | "EN"
-    }
+		SIGHUP: SighupState
 	}
 }
 
