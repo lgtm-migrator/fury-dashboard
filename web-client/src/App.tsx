@@ -10,6 +10,11 @@ import { HTMLRetriever } from './Services/HTMLRetriever';
 
 
 async function init() {
+	window.SIGHUP = {
+		modules: {},
+		language: (localStorage.getItem("SIGHUP_LANGUAGE") as "IT" | "EN") ?? "IT",
+	};
+
 	await DashboardConfig.createDashboardConfigSingletonAsync();
 
 	const dashboardModuleComponent = await new DashboardModule().loadElementConstructorAsync();

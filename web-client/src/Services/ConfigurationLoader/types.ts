@@ -31,7 +31,31 @@ export interface Configuration {
   
 }
 
-
 export interface ConfigurationLoader {
   loadConfigurationAsync(): Promise<Configuration>
 }
+
+declare global {
+	interface Window {
+		[key: string]: any
+
+		DASHBOARD_CONFIG?: {
+			REMOTE_COMPONENTS: {
+				[key: string]: {
+					Scope: string;
+					Module: string;
+					Url: string;
+					Params?: {
+						[key: string]: any;
+					};
+				};
+			};
+		};
+
+    SIGHUP: {
+      modules: RemoteComponents,
+      language: "IT" | "EN"
+    }
+	}
+}
+

@@ -23,7 +23,7 @@ export abstract class ModuleLoader<T> {
     
     this.componentConfig = this.getConfig(this.conf)
   }
-  
+
   protected getConfig(conf: DashboardConfig): RemoteFederatedModule<T> {
     return conf.REMOTE_COMPONENTS[this.moduleKey]
   };
@@ -43,6 +43,15 @@ export abstract class ModuleLoader<T> {
     // @ts-ignore
     const factory = await window[this.componentConfig.Scope].get(this.componentConfig.Module);
     const Module = factory();
+
+    if (!window.SIGHUP.modules[this.moduleKey]) {
+      window.SIGHUP.modules[this.moduleKey] = {};
+    }
+
+    window.SIGHUP.modules[this.moduleKey] = {
+      ...window.SIGHUP.modules[this.moduleKey],
+      ...this.componentConfig.Params
+    }
     
     return Module.default;
   };

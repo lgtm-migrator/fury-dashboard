@@ -10,18 +10,4 @@ export class Module extends ModuleLoader<FuryDashboardParams> {
 		super(ModuleLoader.moduleNames.furyconnectswitchui);
 	}
 
-	protected getConfig(conf: DashboardConfig): RemoteFederatedModule<FuryDashboardParams> {
-		{
-			if (!this.conf.REMOTE_COMPONENTS.furyconnectswitchui) {
-				throw new NoModuleConfigurationError('furyconnectswitchui', conf);
-			}
-
-			window.APP_CONFIG = {
-				APP_ENDPOINT: this.conf.REMOTE_COMPONENTS.furyconnectswitchui.Params.apiurl,
-			};
-
-			return super.getConfig(conf);
-		}
-	}
-
 }
