@@ -1,20 +1,23 @@
-import { createBrowserHistory } from "history";
 import { Module as DashboardModule } from "./Components/Dashboard/Module";
 import ComponentLoader from "./Components/Dynamic/ComponentLoader";
 import FuryHeader from "./Components/Header/WebComponent";
 import FuryNav from "./Components/Nav/FuryNav";
+import NavComponent from "./Components/Nav/NavPoc";
 import "./index.scss";
 import { DashboardConfig } from "./Services/ConfigurationLoader/DashboardConfig";
 import { Logger } from "./Services/Logging/Logger";
+import { Router } from "@vaadin/router";
 
 async function init() {
   await DashboardConfig.createDashboardConfigSingletonAsync();
 
+  const dashboardModuleComponent =
+    await new DashboardModule().loadElementConstructorAsync();
+  window.customElements.define("fury-dashboard", dashboardModuleComponent);
+  window.customElements.define("fury-subnav", NavComponent);
   window.customElements.define("fury-header", FuryHeader);
   window.customElements.define("component-loader", ComponentLoader);
   window.customElements.define("fury-nav", FuryNav);
-
-  const history = createBrowserHistory();
 
   const header = document.querySelector("#header");
   const nav = document.querySelector("#nav");
@@ -24,35 +27,14 @@ async function init() {
   header.innerHTML = `<fury-header />`;
   nav.innerHTML = `<fury-nav />`;
 
-  //  const findComponentName = (pathName: string) => {
-  //    Logger.singleton.debug("pathname", pathName);
-
-  //    const currentRoute = Object.keys(routes).find((route) =>
-  //      route.startsWith(pathName)
-  //    );
-  //    if (currentRoute) {
-  //      return routes[currentRoute];
-  //    } else {
-  //      return "not found";
-  //    }
-  //  };
-
-  const updatePageComponent = (location) => {
-    Logger.singleton.debug("location", location);
-    appContent.innerHTML = `<component-loader />`;
-  };
-
-  history.listen(updatePageComponent);
-  updatePageComponent(window.location);
-
-  document.addEventListener("click", (e) => {
-    if ((e.target as HTMLAnchorElement).nodeName === "A") {
-      const href = (e.target as HTMLAnchorElement).getAttribute("href");
-      history.push(href);
-      Logger.singleton.debug("cambio route");
-      e.preventDefault();
-    }
-  });
+  const router = new Router(document.getElementById("content"));
+  router.setRoutes([
+    { path: "/", component: "fury-dashboard" },
+    { path: "/support", component: "fury-dashboard" },
+    { path: "/sample", children: [
+			{ path: "(.*)", component: "fury-subnav" }
+		]},
+  ]);
 }
 
 init();
