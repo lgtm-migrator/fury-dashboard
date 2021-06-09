@@ -2,16 +2,14 @@ import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 import {Module as DashboardModule} from "../Dashboard/Module";
 import NavComponent from '../Nav/NavPoc';
-import { createBrowserHistory } from 'history';
 import reactToWebComponent from "react-to-webcomponent";
-import { Logger } from '../../Services/Logging/Logger';
 
-const Router = (props) => {
+const Router = (props: {}) => {
   const [currentElement, setCurrentElement] = useState('');
 
   const basePath = window.location.pathname;
 
-  const urlMatch = (basepath, route) => {
+  const urlMatch = (basepath: string, route: string) => {
     // TODO: enhance regex controls to allow subpath
     // but avoid similar path to ovverrides
     const exp = `^\/${route}`;

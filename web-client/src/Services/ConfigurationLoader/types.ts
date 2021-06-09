@@ -18,6 +18,7 @@ export interface RemoteFederatedModule<T extends {}> {
 }
 
 export interface RemoteComponents {
+  [key: string]: any
   furyconnectswitchui?: RemoteFederatedModule<FuryDashboardParams>
 }
 

@@ -6,7 +6,8 @@
       "dom.iterable",
       "esnext"
     ],
-    "noImplicitAny": false,
+    "strictNullChecks": true,
+    "noImplicitAny": true,
     "sourceMap": true,
     "allowJs": true,
     "skipLibCheck": true,

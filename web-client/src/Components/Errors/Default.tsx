@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 
 import reactToWebComponent from "react-to-webcomponent";
 
-const ErrorDefault = (props) => {
+const ErrorDefault = (props: {}) => {
 	return (
 		<div>Errore</div>
 	)

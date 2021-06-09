@@ -11,12 +11,12 @@ import {
 } from "fury-design-system";
 import logo from "../../assets/logo.svg";
 
-const FuryHeaderReact = (props) => {
+const FuryHeaderReact = (props: {}) => {
   const breadcrumbs = [
     {
       text: "Organization: FooCompany",
       href: "#",
-      onClick: (e) => {
+      onClick: (e: Event) => {
         e.preventDefault();
       },
     },
@@ -50,7 +50,9 @@ const FuryHeaderReact = (props) => {
       </EuiHeader>
       <EuiHeader>
         <EuiHeaderBreadcrumbs
-          breadcrumbs={breadcrumbs}
+          breadcrumbs={
+            /*TODO */
+            breadcrumbs as any}
           aria-label="Header breadcrumbs example"
         />
       </EuiHeader>
