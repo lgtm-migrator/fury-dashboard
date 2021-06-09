@@ -6,7 +6,7 @@ import { SighupStorage } from '../../Services/SighupStorage';
 
 export abstract class ModuleLoader<T> {
 
-	protected readonly conf: DashboardConfig = DashboardConfig.DASHBOARD_CONFIG_SINGLETON;
+	protected readonly conf: DashboardConfig = DashboardConfig.singleton;
 
 	protected componentConfig: RemoteFederatedModule<T>;
 

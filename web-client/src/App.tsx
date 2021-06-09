@@ -14,7 +14,7 @@ async function init() {
 
 	SighupStorage.singleton.bootstrapState();
 
-	const conf = await DashboardConfig.createDashboardConfigSingletonAsync();
+	const conf = await DashboardConfig.createSingletonAsync();
 
 	const dashboardModuleComponent = await new DashboardModule().loadElementConstructorAsync();
 	window.customElements.define('fury-dashboard', dashboardModuleComponent);

@@ -10,7 +10,7 @@ export class DashboardConfig {
 
 	public readonly REMOTE_COMPONENTS: RemoteComponents;
 
-	public static DASHBOARD_CONFIG_SINGLETON: DashboardConfig;
+	public static singleton: DashboardConfig;
 
 	private constructor(conf: ConstructorParams)
 	{
@@ -53,16 +53,16 @@ export class DashboardConfig {
 	}
 
 
-	public static async createDashboardConfigSingletonAsync(): Promise<DashboardConfig> {
+	public static async createSingletonAsync(): Promise<DashboardConfig> {
 		if (process.env.SERVER_OFFLINE === 'true') {
-			DashboardConfig.DASHBOARD_CONFIG_SINGLETON =
+			DashboardConfig.singleton =
 				DashboardConfig.fromEnvOrWindow();
 		} else {
-			DashboardConfig.DASHBOARD_CONFIG_SINGLETON =
+			DashboardConfig.singleton =
 				await DashboardConfig.fromRemote(process.env.SERVER_BASE_PATH ?? '');
 		}
 
-		return DashboardConfig.DASHBOARD_CONFIG_SINGLETON;
+		return DashboardConfig.singleton;
 	}
 
 
