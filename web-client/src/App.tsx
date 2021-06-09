@@ -14,7 +14,7 @@ async function init() {
 
 	SighupStorage.singleton.bootstrapState();
 
-	await DashboardConfig.createDashboardConfigSingletonAsync();
+	const conf = await DashboardConfig.createDashboardConfigSingletonAsync();
 
 	const dashboardModuleComponent = await new DashboardModule().loadElementConstructorAsync();
 	window.customElements.define('fury-dashboard', dashboardModuleComponent);
@@ -33,7 +33,7 @@ async function init() {
 	header.innerHTML = `<fury-header />`;
 	nav.innerHTML = `<fury-nav />`;
 
-	new Router(htmlRetriever.getElementFromId('content')).setRoutes();
+	new Router(htmlRetriever.getElementFromId('content'), conf).generateRootRoutes();
 }
 
 init();

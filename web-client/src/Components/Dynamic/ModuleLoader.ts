@@ -6,11 +6,6 @@ import { SighupStorage } from '../../Services/SighupStorage';
 
 export abstract class ModuleLoader<T> {
 
-	protected static readonly moduleNames = {
-		furyconnectswitchui: 'furyconnectswitchui',
-		furyclustermap     : 'furyclustermap',
-	};
-
 	protected readonly conf: DashboardConfig = DashboardConfig.DASHBOARD_CONFIG_SINGLETON;
 
 	protected componentConfig: RemoteFederatedModule<T>;

@@ -1,5 +1,10 @@
 import { RemoteComponents } from './types';
 
+type ConstructorParams = {
+	DASHBOARD_ENDPOINT: any;
+	RemoteComponents: any;
+};
+
 export class DashboardConfig {
 	public readonly DASHBOARD_ENDPOINT?: string;
 
@@ -7,10 +12,7 @@ export class DashboardConfig {
 
 	public static DASHBOARD_CONFIG_SINGLETON: DashboardConfig;
 
-	private constructor(conf: {
-		DASHBOARD_ENDPOINT: any;
-		RemoteComponents: any;
-	})
+	private constructor(conf: ConstructorParams)
 	{
 		if (!conf.RemoteComponents) {
 			throw new Error('missing dashboard config data');
@@ -49,10 +51,7 @@ export class DashboardConfig {
 
 		return new DashboardConfig(data.Data);
 	}
-	//
-	// private static fromFile(): DashboardConfig {
-	// 	return { DASHBOARD_ENDPOINT: "", REMOTE_COMPONENTS };
-	// }
+
 
 	public static async createDashboardConfigSingletonAsync(): Promise<DashboardConfig> {
 		if (process.env.SERVER_OFFLINE === 'true') {
@@ -65,4 +64,6 @@ export class DashboardConfig {
 
 		return DashboardConfig.DASHBOARD_CONFIG_SINGLETON;
 	}
+
+
 }
