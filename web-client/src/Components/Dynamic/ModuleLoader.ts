@@ -16,6 +16,7 @@ export abstract class ModuleLoader<T> {
 			throw new NoModuleConfigurationError(this.moduleKey, this.conf);
 		}
 
+		this.componentConfig = this.getConfig(this.conf);
 	}
 
 	protected getConfig(conf: DashboardConfig): RemoteFederatedModule<T> {
@@ -55,6 +56,7 @@ export abstract class ModuleLoader<T> {
 	private loadScriptAsync(): Promise<CustomElementConstructor> {
 		return new Promise((resolve, reject) => {
 			const element = document.createElement('script');
+			console.log('this', this)
 
 			element.src = this.componentConfig.Url;
 			element.type = 'text/javascript';
@@ -64,7 +66,6 @@ export abstract class ModuleLoader<T> {
 				console.log(`Dynamic Script Loaded: ${ this.componentConfig.Url }`);
 				// modificare il dom a seguito del success
 				resolve(this.successHandler());
-
 			};
 
 			element.onerror = (event) => {
