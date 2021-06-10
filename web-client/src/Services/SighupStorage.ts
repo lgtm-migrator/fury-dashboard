@@ -71,8 +71,9 @@ export class SighupStorage {
 		} catch (err) {
 
 			return window.SIGHUP = {
-				modules : {},
-				language: 'IT',
+				modules  : {},
+				language : 'IT',
+				dashboard: true,
 			};
 		}
 

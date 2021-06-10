@@ -43,6 +43,8 @@ export interface SighupState {
 	modules: RemoteComponents,
 
 	language: Language
+
+	dashboard: boolean
 }
 
 declare global {
