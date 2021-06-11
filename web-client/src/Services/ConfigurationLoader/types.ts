@@ -24,22 +24,10 @@ export interface RemoteComponents {
 	furyconnectswitchui?: RemoteFederatedModule<FuryDashboardParams>
 }
 
-export interface Configuration {
-	listener: string
-
-	externalEndpoint: string
-
-	remoteComponents: RemoteComponents
-
-}
-
-export interface ConfigurationLoader {
-	loadConfigurationAsync(): Promise<Configuration>
-}
 
 export type Language = 'IT' | 'EN'
 
-export interface SighupState {
+export interface FuryState {
 	modules: RemoteComponents,
 
 	language: Language
@@ -51,20 +39,7 @@ declare global {
 	interface Window {
 		[key: string]: any
 
-		DASHBOARD_CONFIG?: {
-			REMOTE_COMPONENTS: {
-				[key: string]: {
-					Scope: string;
-					Module: string;
-					Url: string;
-					Params?: {
-						[key: string]: any;
-					};
-				};
-			};
-		};
-
-		SIGHUP: SighupState
+		FURY: FuryState
 	}
 }
 

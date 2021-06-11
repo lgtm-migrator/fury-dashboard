@@ -1,26 +1,26 @@
-import { Language, SighupState } from './ConfigurationLoader/types';
+import { Language, FuryState } from './ConfigurationLoader/types';
 
 /**
- * @class SighupStorage
+ * @class FuryStorage
  * @description Stores and retrieves the SIGHUP state
  */
-export class SighupStorage {
+export class FuryStorage {
 
-	private static SIGHUP_STATE = 'SIGHUP_STATE';
+	private static FURY_STATE = 'FURY_STATE';
 
-	public static singleton = new SighupStorage();
+	public static singleton = new FuryStorage();
 
 	constructor() {
 	}
 
 	private refreshLocalStorage() {
 
-		localStorage.setItem('SIGHUP_STATE', JSON.stringify(window.SIGHUP));
+		localStorage.setItem(FuryStorage.FURY_STATE, JSON.stringify(window.FURY));
 	}
 
-	private getLocalStorageState(): SighupState {
+	private getLocalStorageState(): FuryState {
 
-		const state = localStorage.getItem(SighupStorage.SIGHUP_STATE);
+		const state = localStorage.getItem(FuryStorage.FURY_STATE);
 
 		if (!state) {
 			throw Error('missing sighup state');
@@ -36,12 +36,12 @@ export class SighupStorage {
 	 */
 	public setModuleValue(moduleKey: string, params: {}) {
 
-		if (!window.SIGHUP.modules[moduleKey]) {
-			window.SIGHUP.modules[moduleKey] = {};
+		if (!window.FURY.modules[moduleKey]) {
+			window.FURY.modules[moduleKey] = {};
 		}
 
-		window.SIGHUP.modules[moduleKey] = {
-			...window.SIGHUP.modules[moduleKey],
+		window.FURY.modules[moduleKey] = {
+			...window.FURY.modules[moduleKey],
 			...params,
 		};
 
@@ -51,7 +51,7 @@ export class SighupStorage {
 
 	public setLanguage(language: Language) {
 
-		window.SIGHUP.language = language;
+		window.FURY.language = language;
 
 		this.refreshLocalStorage();
 	}
@@ -59,18 +59,18 @@ export class SighupStorage {
 	/**
 	 * Creates or recover a localStorage SighupState
 	 */
-	public bootstrapState(): SighupState {
+	public bootstrapState(): FuryState {
 
 
 		try {
 
 			const localStorageState = this.getLocalStorageState();
-			window.SIGHUP = localStorageState;
+			window.FURY = localStorageState;
 			return localStorageState;
 
 		} catch (err) {
 
-			return window.SIGHUP = {
+			return window.FURY = {
 				modules  : {},
 				language : 'IT',
 				dashboard: true,
@@ -79,12 +79,12 @@ export class SighupStorage {
 
 	}
 
-	public getState(): SighupState {
+	public getState(): FuryState {
 
-		if (!window.SIGHUP) {
+		if (!window.FURY) {
 			throw Error('no state found');
 		}
-		return window.SIGHUP;
+		return window.FURY;
 	}
 
 

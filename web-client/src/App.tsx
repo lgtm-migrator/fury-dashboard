@@ -7,12 +7,12 @@ import './index.scss';
 import { DashboardConfig } from './Services/ConfigurationLoader/DashboardConfig';
 import { Router } from './Services/Routing/Router';
 import { HTMLRetriever } from './Services/HTMLRetriever';
-import { SighupStorage } from './Services/SighupStorage';
+import { FuryStorage } from './Services/FuryStorage';
 
 
 async function init() {
 
-	SighupStorage.singleton.bootstrapState();
+	FuryStorage.singleton.bootstrapState();
 
 	const conf = await DashboardConfig.createSingletonAsync();
 

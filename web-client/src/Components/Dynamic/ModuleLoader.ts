@@ -2,7 +2,7 @@ import { RemoteFederatedModule } from '../../Services/ConfigurationLoader/types'
 import { DashboardConfig } from '../../Services/ConfigurationLoader/DashboardConfig';
 import { NoModuleConfigurationError } from '../../Errors/NoModuleConfigurationError';
 import ErrorDefaultWebComp from '../Errors/Default';
-import { SighupStorage } from '../../Services/SighupStorage';
+import { FuryStorage } from '../../Services/FuryStorage';
 
 export abstract class ModuleLoader<T> {
 
@@ -39,7 +39,7 @@ export abstract class ModuleLoader<T> {
 		const factory = await window[this.componentConfig.Scope].get(this.componentConfig.Module);
 		const Module = factory();
 
-		SighupStorage.singleton.setModuleValue(this.moduleKey, this.componentConfig.Params);
+		FuryStorage.singleton.setModuleValue(this.moduleKey, this.componentConfig.Params);
 
 		return Module.default;
 	};
