@@ -1,0 +1,60 @@
+# Copyright (c) 2021 SIGHUP s.r.l All rights reserved.
+# Use of this source code is governed by a BSD-style
+# license that can be found in the LICENSE file.
+
+kind: pipeline
+name: License
+
+steps:
+  - name: check
+    image: golang
+    pull: always
+    commands:
+      - go get -u github.com/google/addlicense
+      - addlicense -c "SIGHUP s.r.l" -v -l bsd --check .
+
+---
+kind: pipeline
+name: Build and Release
+
+depends_on:
+  - License
+
+steps:
+  - name: front
+    image: node:14.16
+    pull: always
+    commands:
+      - yarn --cwd ./web-client install
+      - yarn --cwd ./web-client build
+
+  - name: build
+    image: golang:1.16-buster
+    pull: always
+    depends_on: [front]
+    commands:
+      - cp -a -R web-client/dist/ static/
+      - curl -sfL https://install.goreleaser.com/github.com/goreleaser/goreleaser.sh | sh
+      - git reset --hard
+      - git fetch --tags
+      - ./bin/goreleaser check
+      - ./bin/goreleaser build --debug --snapshot --rm-dist
+
+  - name: release
+    image: golang:1.16-buster
+    pull: always
+    depends_on: [build]
+    environment:
+      GITHUB_TOKEN:
+        from_secret: GITHUB_TOKEN
+    commands:
+      - curl -sfL https://install.goreleaser.com/github.com/goreleaser/goreleaser.sh | sh
+      - git reset --hard
+      - git fetch --tags
+      - cp -a -R web-client/dist/ static/
+      - ./bin/goreleaser check
+      - ./bin/goreleaser --debug release --rm-dist --skip-validate
+    when:
+      ref:
+        include:
+          - refs/tags/**
