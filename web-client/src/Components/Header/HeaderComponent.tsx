@@ -9,7 +9,7 @@ import {
   EuiHeaderBreadcrumbs,
   EuiHeaderSectionItem,
 } from "fury-design-system";
-import logo from "../../assets/logo.svg";
+import logo from "../../Assets/logo.svg";
 
 const FuryHeaderReact = (props: {}) => {
   const breadcrumbs = [

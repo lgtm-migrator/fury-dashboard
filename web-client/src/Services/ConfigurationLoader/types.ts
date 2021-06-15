@@ -1,5 +1,6 @@
 export interface FuryDashboardParams {
 	apiurl: string
+	servicesupportid: string
 }
 
 export interface ClusterMapParams {
