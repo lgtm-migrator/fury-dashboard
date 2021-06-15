@@ -18,7 +18,7 @@ export default class FuryNav extends HTMLElement {
         <a href="/">Home</a>
       </li>
       <li>
-        <a href="/support">Support</a>
+        <a href="/sample">Sample</a>
       </li>
     </ul>
     `;

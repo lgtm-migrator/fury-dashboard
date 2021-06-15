@@ -29,18 +29,17 @@ export class DashboardConfig {
 			throw Error('no DASHBOARD_CONFIG found');
 		}
 
-
-		const dashboardConfig = JSON.parse(dashboardconfig);
+		const parsedConfig = JSON.parse(dashboardconfig);
 
 		if (
-			!dashboardConfig.DASHBOARD_ENDPOINT ||
-			!dashboardConfig.RemoteComponents
+			!parsedConfig.DASHBOARD_ENDPOINT ||
+			!parsedConfig.RemoteComponents
 		)
 		{
 			throw Error('missing configuration components');
 		}
 
-		return new DashboardConfig(dashboardConfig);
+		return new DashboardConfig(parsedConfig);
 	}
 
 	private static async fromRemote(
@@ -54,6 +53,8 @@ export class DashboardConfig {
 
 
 	public static async createSingletonAsync(): Promise<DashboardConfig> {
+		// Take the config from different places based
+		// on the enviroment
 		if (process.env.SERVER_OFFLINE === 'true') {
 			DashboardConfig.singleton =
 				DashboardConfig.fromEnvOrWindow();

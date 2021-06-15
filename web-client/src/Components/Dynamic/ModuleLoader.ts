@@ -45,11 +45,11 @@ export abstract class ModuleLoader<T> {
 	};
 
 	/**
-	 * errorHandler is invoked when the script loading fails.
+	 * ErrorHandler is invoked when the script loading fails.
 	 * @protected
 	 */
 	protected async errorHandler(event: Event | string): Promise<CustomElementConstructor> {
-		// todo return a default error component
+
 		return ErrorDefaultWebComp;
 	}
 

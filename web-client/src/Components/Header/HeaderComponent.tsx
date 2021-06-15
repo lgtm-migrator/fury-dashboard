@@ -44,7 +44,7 @@ const FuryHeaderReact = (props: {}) => {
         <EuiHeaderSectionItem></EuiHeaderSectionItem>
         <EuiHeaderSectionItem>
           <EuiHeaderLinks aria-label="App navigation links example">
-            <EuiHeaderLink iconType="help">Help</EuiHeaderLink>
+            <EuiHeaderLink iconType="help" href="/support">Support</EuiHeaderLink>
           </EuiHeaderLinks>
         </EuiHeaderSectionItem>
       </EuiHeader>

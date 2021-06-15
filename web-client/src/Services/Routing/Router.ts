@@ -32,7 +32,8 @@ export class Router {
 
 		// we define here the static routes of the application.
 		const routes: RouterLibrary.Route[] = [
-			{ path: '/', component: 'fury-dashboard' },
+			{ path: '/', component: '' },
+			// Example of static component routing
 			this.generateComponentRoute('/sample', 'fury-subnav'),
 		];
 

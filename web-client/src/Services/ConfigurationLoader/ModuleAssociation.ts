@@ -12,7 +12,8 @@ interface Associations {
 export class ModuleConstants {
 
 	/**
-	 * modulesNames key corresponds to the remoteComponents name of the module.
+	 * ModulesNames key corresponds to the remoteComponents name 
+	 * of the Federated Modules that FURY will contains.
 	 * This is used to load the modules
 	 */
 	public static readonly names = {
@@ -21,19 +22,19 @@ export class ModuleConstants {
 	};
 
 	/**
-	 * Assigns each Module to a route
+	 * Assigns each Federated Module to a route
 	 */
 	public static routeAssociations: Associations[] = [
 		{
 			yamlComponentName: ModuleConstants.names.furyconnectswitchui,
 			routePath        : '/support',
-			componentName    : 'fury-dashboard',
+			componentName    : 'fury-support',
 		},
-		{
-			yamlComponentName: ModuleConstants.names.furyclustermap,
-			routePath        : '/clustermap',
-			componentName    : '',
-		},
+		// {
+		// 	yamlComponentName: ModuleConstants.names.furyclustermap,
+		// 	routePath        : '/clustermap',
+		// 	componentName    : '',
+		// },
 	];
 
 }
