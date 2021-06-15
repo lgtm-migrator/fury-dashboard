@@ -42,7 +42,7 @@ export class FuryStorage {
 
 		window.FURY.modules[moduleKey] = {
 			...window.FURY.modules[moduleKey],
-			...params,
+			Params: {...params},
 		};
 
 		this.refreshLocalStorage();
