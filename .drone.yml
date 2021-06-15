@@ -24,6 +24,9 @@ steps:
   - name: front
     image: node:14.16
     pull: always
+    environment:
+      SERVER_OFFLINE: "false"
+      APP_ENV: development
     commands:
       - yarn --cwd ./web-client install
       - yarn --cwd ./web-client build
