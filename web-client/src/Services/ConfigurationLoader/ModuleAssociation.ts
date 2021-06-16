@@ -14,7 +14,7 @@ export class ModuleConstants {
 	/**
 	 * ModulesNames key corresponds to the remoteComponents name 
 	 * of the Federated Modules that FURY will contains.
-	 * This is used to load the modules
+	 * This is used to load these remote modules
 	 */
 	public static readonly names = {
 		furyconnectswitchui: 'furyconnectswitchui',

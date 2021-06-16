@@ -1,3 +1,4 @@
+import { ModuleConstants } from './ConfigurationLoader/ModuleAssociation';
 import { Language, FuryState } from './ConfigurationLoader/types';
 
 /**
@@ -36,12 +37,15 @@ export class FuryStorage {
 	 */
 	public setModuleValue(moduleKey: string, params: {}) {
 
+		const routeConfiguration = ModuleConstants.routeAssociations.find((e) => e.yamlComponentName === moduleKey);
+
 		if (!window.FURY.modules[moduleKey]) {
 			window.FURY.modules[moduleKey] = {};
 		}
 
 		window.FURY.modules[moduleKey] = {
 			...window.FURY.modules[moduleKey],
+			BasePath: routeConfiguration ? routeConfiguration.routePath : '/',
 			Params: {...params},
 		};
 
@@ -72,7 +76,7 @@ export class FuryStorage {
 
 			return window.FURY = {
 				modules  : {},
-				language : 'IT',
+				language : 'EN',
 				dashboard: true,
 			};
 		}
