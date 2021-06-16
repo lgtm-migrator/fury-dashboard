@@ -1,6 +1,5 @@
 import { Module as DashboardModule } from './Components/Dashboard/Module';
 import FuryHeader from './Components/Header/WebComponent';
-import FuryNav from './Components/Nav/FuryNav';
 import NavComponent from './Components/Nav/NavPoc';
 import './index.scss';
 import { DashboardConfig } from './Services/ConfigurationLoader/DashboardConfig';
@@ -20,7 +19,6 @@ async function init() {
 	window.customElements.define('fury-support', dashboardModuleComponent);
 	window.customElements.define('fury-subnav', NavComponent);
 	window.customElements.define('fury-header', FuryHeader);
-	window.customElements.define('fury-nav', FuryNav);
 
 	const htmlRetriever = new HTMLRetriever();
 
@@ -30,7 +28,6 @@ async function init() {
 
 	// Render components that are always on screen
 	header.innerHTML = `<fury-header />`;
-	nav.innerHTML = `<fury-nav />`;
 
 	// Render dinamyc components based on routes
 	new Router(htmlRetriever.getElementFromId('content'), conf).generateRootRoutes();
