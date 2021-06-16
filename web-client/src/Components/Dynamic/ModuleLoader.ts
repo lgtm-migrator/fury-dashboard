@@ -3,6 +3,7 @@ import { DashboardConfig } from '../../Services/ConfigurationLoader/DashboardCon
 import { NoModuleConfigurationError } from '../../Errors/NoModuleConfigurationError';
 import ErrorDefaultWebComp from '../Errors/Default';
 import { FuryStorage } from '../../Services/FuryStorage';
+import { Logger } from '../../Services/Logging/Logger';
 
 export abstract class ModuleLoader<T> {
 
@@ -56,21 +57,21 @@ export abstract class ModuleLoader<T> {
 	private loadScriptAsync(): Promise<CustomElementConstructor> {
 		return new Promise((resolve, reject) => {
 			const element = document.createElement('script');
-			console.log('this', this)
+			Logger.singleton.log('this', this)
 
 			element.src = this.componentConfig.Url;
 			element.type = 'text/javascript';
 			element.async = true;
 
 			element.onload = () => {
-				console.log(`Dynamic Script Loaded: ${ this.componentConfig.Url }`);
-				// modificare il dom a seguito del success
+				Logger.singleton.log(`Dynamic Script Loaded: ${ this.componentConfig.Url }`);
+				// Upadtes the DOM after a positive load
 				resolve(this.successHandler());
 			};
 
 			element.onerror = (event) => {
-				console.error(`Dynamic Script Error: ${ this.componentConfig.Url }`);
-				// modificare il dom a seguito dell'errore
+				Logger.singleton.error(`Dynamic Script Error: ${ this.componentConfig.Url }`);
+				// Updates the DOM after a loading error
 				resolve(this.errorHandler(event));
 			};
 
