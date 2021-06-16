@@ -1,17 +1,43 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
+  EuiIcon,
   EuiBadge,
+  EuiAvatar,
+  EuiSelect,
   EuiHeader,
   EuiSpacer,
+  EuiSideNav,
   EuiHeaderLogo,
   EuiHeaderLink,
   EuiHeaderLinks,
   EuiHeaderBreadcrumbs,
   EuiHeaderSectionItem,
+  EuiHeaderSectionItemButton,
 } from "fury-design-system";
+import './HeaderComponent.css';
 import logo from "../../Assets/logo.svg";
+import theme from 'fury-design-system/dist/eui_theme_light.json';
+import { Logger } from '../../Services/Logging/Logger';
+import { FuryStorage } from '../../Services/FuryStorage';
 
-const FuryHeaderReact = (props: {}) => {
+Logger.singleton.log('theme', theme)
+
+const changeLanguage = (e: any) => {
+  e.target?.value && FuryStorage.singleton.setLanguage(e.target.value);
+  window.location.reload();
+}
+
+
+const FuryHeaderReact = (theme: any) => {
+  const options = [
+    { value: 'IT', text: 'Italiano' },
+    { value: 'EN', text: 'English' },
+  ];
+
+  const [currentLang, setCurrentLang] = useState(FuryStorage.singleton.getState().language);
+
+  Logger.singleton.log('lang', currentLang);
+
   const breadcrumbs = [
     {
       text: "Organization: FooCompany",
@@ -34,29 +60,45 @@ const FuryHeaderReact = (props: {}) => {
     // },
   ];
 
+
   return (
     <>
       <EuiHeader theme="dark">
         <EuiHeaderSectionItem border="right">
-          <EuiHeaderLogo iconType={logo}>F U R Y</EuiHeaderLogo>
-          <EuiBadge color="primary">V.1.5.1</EuiBadge>
+          <EuiHeaderLogo iconType={logo}>FURY Intelligent Platform</EuiHeaderLogo>
+          <p>for: </p><EuiBadge color="primary">Awesome Customer Name</EuiBadge>
         </EuiHeaderSectionItem>
-        <EuiHeaderSectionItem></EuiHeaderSectionItem>
-        <EuiHeaderSectionItem>
-          <EuiHeaderLinks aria-label="App navigation links example">
-            <EuiHeaderLink iconType="help" href="/support">Support</EuiHeaderLink>
-          </EuiHeaderLinks>
-        </EuiHeaderSectionItem>
-      </EuiHeader>
-      <EuiHeader>
-        <EuiHeaderBreadcrumbs
+        {/* <EuiHeaderBreadcrumbs
           breadcrumbs={
-            /*TODO */
             breadcrumbs as any}
           aria-label="Header breadcrumbs example"
-        />
+        /> */}
+        <EuiHeaderSectionItem>
+          <EuiSelect
+            options={options}
+            value={currentLang}
+            onChange={changeLanguage}
+          />
+        </EuiHeaderSectionItem>
       </EuiHeader>
-      <EuiSpacer size="xxl" />
+
+      <EuiHeader >
+        <EuiHeaderSectionItem>
+          <EuiHeaderLinks aria-label="App navigation links example">
+            <EuiHeaderLink iconType="home" href="/">Home</EuiHeaderLink>
+            <EuiHeaderLink href="/sample">Sample Page</EuiHeaderLink>
+          </EuiHeaderLinks>
+        </EuiHeaderSectionItem>
+
+
+        <EuiHeaderSectionItem>
+        <EuiHeaderLinks aria-label="test">
+            <EuiHeaderLink iconType="help" href="/support">Live Support</EuiHeaderLink>
+        </EuiHeaderLinks>
+        </EuiHeaderSectionItem>
+      </EuiHeader>
+      {/* <SideNav /> */}
+      {/* <EuiSpacer size="xxl" /> */}
     </>
   );
 };
