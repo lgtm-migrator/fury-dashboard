@@ -2,9 +2,15 @@
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
 
-FROM node:14.16 as webapp
+FROM node:lts-alpine3.13 as webapp
 
+RUN apk --no-cache add curl bash jq
 COPY web-client web-client
+# RUN curl -sS https://webinstall.dev/jq | bash
+ENV APP_ENV=production
+ENV SERVER_OFFLINE=false
+ENV SERVER_BASE_PATH=""
+RUN chmod +x ./web-client/development/build.sh
 RUN yarn --cwd ./web-client install
 RUN yarn --cwd ./web-client build
 

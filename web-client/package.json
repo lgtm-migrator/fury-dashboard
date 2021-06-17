@@ -5,13 +5,14 @@
   "scripts": {
     "start": "serve dist -p 3001",
     "test": "jest",
-    "build": "webpack --mode production",
+    "build": "./development/build.sh && webpack --mode production",
     "webpack-dev": "webpack serve -o ../dist/",
     "build-to-server": "webpack --mode production -o ../static/",
     "dev": "concurrently \"webpack --watch\" \"serve dist -p 3001\"",
-    "dev-local-no-backend": "webpack serve",
-    "dev-local-with-backend": "webpack serve",
-    "prod-build": "webpack --mode production"
+    "dev-local-no-backend": "./development/dev-local-no-backend.sh && webpack serve",
+    "dev-local-with-backend": "./development/dev-local-with-backend.sh && webpack serve",
+    "dev-local-no-backend-build": "./development/dev-local-no-backend.sh && webpack build",
+    "dev-local-with-backend-build": "./development/dev-local-with-backend.sh && webpack build"
   },
   "dependencies": {
     "@vaadin/router": "^1.7.4",

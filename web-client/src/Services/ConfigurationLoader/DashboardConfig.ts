@@ -1,4 +1,5 @@
 import { RemoteComponents } from './types';
+import {Logger} from "../Logging/Logger";
 
 type ConstructorParams = {
 	DASHBOARD_ENDPOINT: any;
@@ -28,7 +29,7 @@ export class DashboardConfig {
 		if (!dashboardconfig) {
 			throw Error('no DASHBOARD_CONFIG found');
 		}
-
+		Logger.singleton.log(dashboardconfig);
 		const parsedConfig = JSON.parse(dashboardconfig);
 
 		if (
