@@ -7,8 +7,8 @@ import { ModuleConstants } from '../../Services/ConfigurationLoader/ModuleAssoci
 
 export class Module extends ModuleLoader<FuryDashboardParams> {
 
-	constructor() {
-		super(ModuleConstants.names.furyconnectswitchui);
+	constructor(dashboardConfig = DashboardConfig.singleton) {
+		super(ModuleConstants.names.furyconnectswitchui, dashboardConfig);
 	}
 
 }

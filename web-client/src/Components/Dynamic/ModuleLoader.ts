@@ -7,11 +7,9 @@ import { Logger } from '../../Services/Logging/Logger';
 
 export abstract class ModuleLoader<T> {
 
-	protected readonly conf: DashboardConfig = DashboardConfig.singleton;
-
 	protected componentConfig: RemoteFederatedModule<T>;
 
-	protected constructor(protected moduleKey: string) {
+	protected constructor(protected moduleKey: string, protected readonly conf: DashboardConfig) {
 
 		if (!this.conf.REMOTE_COMPONENTS[this.moduleKey]) {
 			throw new NoModuleConfigurationError(this.moduleKey, this.conf);
@@ -77,7 +75,6 @@ export abstract class ModuleLoader<T> {
 
 			document.head.appendChild(element);
 		});
-
 	};
 
 

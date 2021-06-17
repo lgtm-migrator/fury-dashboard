@@ -4,13 +4,18 @@
   "private": true,
   "scripts": {
     "start": "serve dist -p 3001",
+    "test": "jest",
     "build": "webpack --mode production",
     "webpack-dev": "webpack serve -o ../dist/",
     "build-to-server": "webpack --mode production -o ../static/",
-    "dev": "concurrently \"webpack --watch\" \"serve dist -p 3001\""
+    "dev": "concurrently \"webpack --watch\" \"serve dist -p 3001\"",
+    "dev-local-no-backend": "webpack serve",
+    "dev-local-with-backend": "webpack serve",
+    "prod-build": "webpack --mode production"
   },
   "dependencies": {
     "@vaadin/router": "^1.7.4",
+    "cypress": "^7.5.0",
     "dotenv": "^10.0.0",
     "fury-design-system": "^0.0.5",
     "history": "^5.0.0",
@@ -27,6 +32,7 @@
     "@babel/preset-react": "7.13.13",
     "@elastic/datemath": "^5.0.3",
     "@module-federation/automatic-vendor-federation": "^1.2.1",
+    "@types/jest": "^26.0.23",
     "@types/react": "^17.0.8",
     "@types/react-dom": "^17.0.5",
     "@types/react-router-dom": "^5.1.7",
@@ -57,6 +63,7 @@
     "serve": "^11.3.0",
     "style-loader": "^2.0.0",
     "svg-inline-loader": "^0.8.2",
+    "ts-jest": "^27.0.3",
     "ts-loader": "^9.2.2",
     "typescript": "^4.3.2",
     "webpack": "^5.37.0",

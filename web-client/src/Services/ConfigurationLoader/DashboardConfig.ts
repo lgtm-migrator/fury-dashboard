@@ -51,6 +51,10 @@ export class DashboardConfig {
 		return new DashboardConfig(data.Data);
 	}
 
+	public static createFromJson(jsonConfig: ConstructorParams): DashboardConfig {
+		DashboardConfig.singleton = new DashboardConfig(jsonConfig);
+		return DashboardConfig.singleton;
+	}
 
 	public static async createSingletonAsync(): Promise<DashboardConfig> {
 		// Take the config from different places based
