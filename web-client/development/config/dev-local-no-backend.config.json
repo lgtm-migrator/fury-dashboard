@@ -1,6 +1,0 @@
-{
-  "DASHBOARD_CONFIG": "{\"DASHBOARD_ENDPOINT\": \"http://localhost:8087\",\"RemoteComponents\": {\"furyconnectswitchui\":{\"Scope\":\"FuryConnectSwitchUI\",\"Module\":\"./FurySupport\",\"Url\":\"http://localhost:8084/remoteEntry.js\",\"Params\":{\"apiurl\":\"http://localhost:8083\", \"supportserviceid\": \"ssh.service\"}}}}",
-  "SERVER_BASE_PATH": "",
-  "SERVER_OFFLINE": "true",
-  "APP_ENV": "development"
-}

@@ -1,5 +1,0 @@
-{
-  "SERVER_BASE_PATH": "http://localhost:8087",
-  "SERVER_OFFLINE": "false",
-  "APP_ENV": "development"
-}

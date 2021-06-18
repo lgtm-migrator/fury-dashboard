@@ -30,15 +30,15 @@ export abstract class ModuleLoader<T> {
 		// Initializes the share scope. This fills it with known provided modules from this build and all remotes
 		// @ts-ignore
 		await __webpack_init_sharing__('default');
-		const container = window[this.componentConfig.Scope]; // or get the container somewhere else
+		const container = window[this.componentConfig.scope]; // or get the container somewhere else
 		// Initialize the container, it may provide shared modules
 		// @ts-ignore
 		await container.init(__webpack_share_scopes__.default);
 		// @ts-ignore
-		const factory = await window[this.componentConfig.Scope].get(this.componentConfig.Module);
+		const factory = await window[this.componentConfig.scope].get(this.componentConfig.module);
 		const Module = factory();
 
-		FuryStorage.singleton.setModuleValue(this.moduleKey, this.componentConfig.Params);
+		FuryStorage.singleton.setModuleValue(this.moduleKey, this.componentConfig.params);
 
 		return Module.default;
 	};
@@ -57,18 +57,18 @@ export abstract class ModuleLoader<T> {
 			const element = document.createElement('script');
 			Logger.singleton.log('this', this)
 
-			element.src = this.componentConfig.Url;
+			element.src = this.componentConfig.url;
 			element.type = 'text/javascript';
 			element.async = true;
 
 			element.onload = () => {
-				Logger.singleton.log(`Dynamic Script Loaded: ${ this.componentConfig.Url }`);
+				Logger.singleton.log(`Dynamic Script Loaded: ${ this.componentConfig.url }`);
 				// Upadtes the DOM after a positive load
 				resolve(this.successHandler());
 			};
 
 			element.onerror = (event) => {
-				Logger.singleton.error(`Dynamic Script Error: ${ this.componentConfig.Url }`);
+				Logger.singleton.error(`Dynamic Script Error: ${ this.componentConfig.url }`);
 				// Updates the DOM after a loading error
 				resolve(this.errorHandler(event));
 			};

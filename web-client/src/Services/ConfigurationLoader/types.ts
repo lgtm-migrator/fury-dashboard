@@ -10,13 +10,13 @@ export interface ClusterMapParams {
 }
 
 export interface RemoteFederatedModule<T extends {}> {
-	readonly Scope: string
+	readonly scope: string
 
-	readonly Module: string
+	readonly module: string
 
-	readonly Url: string
+	readonly url: string
 
-	readonly Params: T
+	readonly params: T
 }
 
 export interface RemoteComponents {

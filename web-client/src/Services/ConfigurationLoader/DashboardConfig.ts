@@ -3,7 +3,7 @@ import {Logger} from "../Logging/Logger";
 
 type ConstructorParams = {
 	DASHBOARD_ENDPOINT: any;
-	RemoteComponents: any;
+	remoteComponents: any;
 };
 
 export class DashboardConfig {
@@ -15,12 +15,12 @@ export class DashboardConfig {
 
 	private constructor(conf: ConstructorParams)
 	{
-		if (!conf.RemoteComponents) {
+		if (!conf.remoteComponents) {
 			throw new Error('missing dashboard config data');
 		}
 
 		this.DASHBOARD_ENDPOINT = conf.DASHBOARD_ENDPOINT;
-		this.REMOTE_COMPONENTS = conf.RemoteComponents;
+		this.REMOTE_COMPONENTS = conf.remoteComponents;
 	}
 
 	private static fromEnvOrWindow(): DashboardConfig {
@@ -31,10 +31,10 @@ export class DashboardConfig {
 		}
 		Logger.singleton.log(dashboardconfig);
 		const parsedConfig = JSON.parse(dashboardconfig);
-
+		Logger.singleton.log(parsedConfig)
 		if (
 			!parsedConfig.DASHBOARD_ENDPOINT ||
-			!parsedConfig.RemoteComponents
+			!parsedConfig.remoteComponents
 		)
 		{
 			throw Error('missing configuration components');
@@ -60,6 +60,7 @@ export class DashboardConfig {
 	public static async createSingletonAsync(): Promise<DashboardConfig> {
 		// Take the config from different places based
 		// on the enviroment
+		Logger.singleton.log(process.env)
 		if (process.env.SERVER_OFFLINE === 'true') {
 			DashboardConfig.singleton =
 				DashboardConfig.fromEnvOrWindow();

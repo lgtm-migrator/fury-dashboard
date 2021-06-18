@@ -5,10 +5,10 @@
 // 		DASHBOARD_CONFIG: {
 // 			REMOTE_COMPONENTS: {
 // 				[key: string]: {
-// 					Scope: string;
-// 					Module: string;
-// 					Url: string;
-// 					Params?: {
+// 					scope: string;
+// 					module: string;
+// 					url: string;
+// 					params?: {
 // 						[key: string]: any;
 // 					};
 // 				};

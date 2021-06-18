@@ -4,12 +4,12 @@ import {Module as DashboardModule} from "../../src/Components/Dashboard/Module";
 test("DashboardConfig load to singleton", async () => {
   const dashboardConfig = {
     "DASHBOARD_ENDPOINT": "http://localhost:8087",
-    "RemoteComponents": {
+    "remoteComponents": {
       "furyconnectswitchui": {
-        "Scope": "FuryConnectSwitchUI",
-        "Module": "./FurySupport",
-        "Url": "http://localhost:8084/remoteEntry.js",
-        "Params": {"apiurl": "http://localhost:8083", "supportserviceid": "ssh.service"}
+        "scope": "FuryConnectSwitchUI",
+        "module": "./FurySupport",
+        "url": "http://localhost:8084/remoteEntry.js",
+        "params": {"apiurl": "http://localhost:8083", "supportserviceid": "ssh.service"}
       }
     }
   };
@@ -18,10 +18,10 @@ test("DashboardConfig load to singleton", async () => {
     "DASHBOARD_ENDPOINT": "http://localhost:8087",
     "REMOTE_COMPONENTS": {
       "furyconnectswitchui": {
-        "Scope": "FuryConnectSwitchUI",
-        "Module": "./FurySupport",
-        "Url": "http://localhost:8084/remoteEntry.js",
-        "Params": {"apiurl": "http://localhost:8083", "supportserviceid": "ssh.service"}
+        "scope": "FuryConnectSwitchUI",
+        "module": "./FurySupport",
+        "url": "http://localhost:8084/remoteEntry.js",
+        "params": {"apiurl": "http://localhost:8083", "supportserviceid": "ssh.service"}
       }
     }
   };

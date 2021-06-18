@@ -13,16 +13,17 @@ import (
 )
 
 type YamlConfig struct {
-	Listener         string                     `yaml:"listener"`
-	ExternalEndpoint string                     `yaml:"externalEndpoint"`
-	RemoteComponents map[string]RemoteComponent `yaml:"remoteComponents"`
+	Listener         string                     `json:"listener"`
+	AppEnv           string                     `json:"appEnv"`
+	ExternalEndpoint string                     `json:"externalEndpoint"`
+	RemoteComponents map[string]RemoteComponent `json:"remoteComponents"`
 }
 
 type RemoteComponent struct {
-	Scope  string            `yaml:"scope"`
-	Module string            `yaml:"module"`
-	Url    string            `yaml:"url"`
-	Params map[string]string `yaml:"params"`
+	Scope  string            `json:"scope"`
+	Module string            `json:"module"`
+	Url    string            `json:"url"`
+	Params map[string]string `json:"params"`
 }
 
 func GetConfig() *viper.Viper {
