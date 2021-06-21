@@ -1,3 +1,5 @@
+import {Registry} from "../WebComponents/Registry";
+
 interface Associations {
 	yamlComponentName: string
 
@@ -28,7 +30,7 @@ export class ModuleConstants {
 		{
 			yamlComponentName: ModuleConstants.names.furyconnectswitchui,
 			routePath        : '/support',
-			componentName    : 'fury-support',
+			componentName    : Registry.ComponentTagList.FurySupport,
 		},
 		// {
 		// 	yamlComponentName: ModuleConstants.names.furyclustermap,

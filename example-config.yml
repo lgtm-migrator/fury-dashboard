@@ -12,5 +12,5 @@ remoteComponents:
     module: ./FurySupport
     url: http://localhost:8083/remoteEntry.js
     params:
-      apiUrl: http://localhost:8083
-      supportServiceId: ssh.service
+      apiurl: http://localhost:8083/api/v0/
+      supportserviceid: ssh.service

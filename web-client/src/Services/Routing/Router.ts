@@ -1,6 +1,7 @@
 import { Router as RouterLibrary } from '@vaadin/router';
 import { DashboardConfig } from '../ConfigurationLoader/DashboardConfig';
 import { ModuleConstants } from '../ConfigurationLoader/ModuleAssociation';
+import { Registry } from "../WebComponents/Registry";
 
 /**
  * generates the router for the fury-dashboard
@@ -34,7 +35,7 @@ export class Router {
 		const routes: RouterLibrary.Route[] = [
 			{ path: '/', component: '' },
 			// Example of static component routing
-			this.generateComponentRoute('/sample', 'fury-subnav'),
+			this.generateComponentRoute('/sample', Registry.ComponentTagList.FurySubNav),
 		];
 
 		// we extract all the yaml remote components defined in the configurations

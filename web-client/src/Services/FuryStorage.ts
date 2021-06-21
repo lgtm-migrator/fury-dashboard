@@ -45,8 +45,8 @@ export class FuryStorage {
 
 		window.FURY.modules[moduleKey] = {
 			...window.FURY.modules[moduleKey],
-			BasePath: routeConfiguration ? routeConfiguration.routePath : '/',
-			Params: {...params},
+			basePath: routeConfiguration ? routeConfiguration.routePath : '/',
+			params: {...params},
 		};
 
 		this.refreshLocalStorage();
