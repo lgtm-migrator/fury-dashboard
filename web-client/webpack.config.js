@@ -190,7 +190,7 @@ module.exports = (env) => {
       }),
       new webpack.DefinePlugin({
         "process.env": JSON.stringify({
-          // ...dotenv.parsed,
+          ...(dotenv.parsed ? dotenv.parsed : {}),
           ...(env.from_yaml
             ? yamlConfigToAppConfig(env.offline, env.config_path)
             : envToAppConfig()),

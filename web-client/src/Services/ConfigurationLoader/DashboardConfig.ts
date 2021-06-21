@@ -46,7 +46,7 @@ export class DashboardConfig {
 	private static async fromRemote(
 		basePath: string = '',
 	): Promise<DashboardConfig> {
-		const res = await fetch(`${ basePath }/config/test`);
+		const res = await fetch(`${ basePath }/config`);
 		const data = await res.json();
 
 		return new DashboardConfig(data.Data);
