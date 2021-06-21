@@ -14,6 +14,11 @@ To deploy this utility in your hosts, take in mind the following requirements mu
 - `systemd` working
 - `journal` working
 
+FE build needs the following env variables:
+- APP_ENV: `production` || `development`
+- SERVER_OFFLINE: `true` || `false`
+- SERVER_BASE_PATH: "" || `http://examplepath`
+
 ### Deployment
 
 To install/update the latest version in your hosts:
