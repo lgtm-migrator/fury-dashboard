@@ -47,19 +47,18 @@ func main() {
 	appConfig := config.GetYamlConf()
 	router.Use(cors.New(corsConfig))
 
-	router.GET("/config/test", func(context *gin.Context) {
+	router.GET("/config", func(context *gin.Context) {
 
 		type response struct {
 			Data config.YamlConfig
 		}
 
-
 		context.JSON(200, &response{Data: *appConfig})
 	})
 
-	router.GET("/config/config.js", func(c *gin.Context) {
-		c.String(http.StatusOK, config.GetFrontEndConfigFile(*appConfig))
-	})
+// 	router.GET("/config/config.js", func(c *gin.Context) {
+// 		c.String(http.StatusOK, config.GetFrontEndConfigFile(*appConfig))
+// 	})
 	router.GET("/", func(c *gin.Context) {
 		c.FileFromFS("index.htm", EmbedFolder(embeded, "static"))
 	})
