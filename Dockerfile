@@ -4,11 +4,18 @@
 
 FROM node:lts as webapp
 
-COPY web-client web-client
 ENV APP_ENV=production
 ENV SERVER_OFFLINE=false
 ENV SERVER_BASE_PATH=""
-RUN yarn --cwd ./web-client install
+
+COPY web-client/package.json /var/tmp/package.json
+RUN cd /var/tmp && yarn install
+
+COPY web-client web-client
+
+RUN cd web-client && \
+    ln -sfv /var/tmp/node_modules .
+
 RUN yarn --cwd ./web-client build
 
 FROM golang:1.16-buster AS compile
