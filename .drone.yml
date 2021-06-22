@@ -45,7 +45,7 @@ steps:
       - image_name=$${REGISTRY}/fury/fury-dashboard
       - docker pull $${image_name}:latest || true
       - docker login -u $${REGISTRY_USER} -p $${REGISTRY_PASSWORD} $${REGISTRY}
-      - docker build --pull --cache-from $${image_name}:latest --tag $${image_name}:$${DRONE_BUILD_NUMBER} --tag $${image_name}:latest .
+      - docker build --cache-from $${image_name}:latest --tag $${image_name}:$${DRONE_BUILD_NUMBER} --tag $${image_name}:latest .
       - docker push $${image_name}
       - docker push $${image_name}:latest
 
