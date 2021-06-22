@@ -60,10 +60,10 @@ steps:
         from_secret: KUBECONFIG_STAGING
     commands:
       - image_name=$${REGISTRY}/fury/fury-dashboard
-      - cd kubernetes/staging
-      - kustomize edit set image  $${image_name}:$${DRONE_BUILD_NUMBER}
-      - kustomize build .
-      - kustomize build . | kubectl apply -f -
+      # - cd kubernetes/staging
+      - cd kubernetes/staging && kustomize edit set image $${image_name}:$${DRONE_BUILD_NUMBER}
+      - cd kubernetes/staging && kustomize build .
+      - cd kubernetes/staging && kustomize build . | kubectl apply -f -
 
 ---
 kind: pipeline
