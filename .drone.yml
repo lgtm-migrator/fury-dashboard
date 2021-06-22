@@ -45,8 +45,8 @@ steps:
       - image_name=$${REGISTRY}/fury/fury-dashboard
       - docker login -u $${REGISTRY_USER} -p $${REGISTRY_PASSWORD} $${REGISTRY}
       - docker build  --pull --no-cache --tag $${image_name}:$${DRONE_BUILD_NUMBER} --tag $${image_name}:latest .
-      - docker push $${image_name}}
-      - docker push $${image_name}}:latest
+      - docker push $${image_name}
+      - docker push $${image_name}:latest
 
   - name: deploy_k8s_staging
     image: quay.io/sighup/kubectl-kustomize:1.18.2_3.6.1
