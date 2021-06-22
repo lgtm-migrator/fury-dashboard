@@ -39,7 +39,7 @@ steps:
     commands:
       - image_name=$${REGISTRY}/fury/fury-dashboard
       - docker login -u $${REGISTRY_USER} -p $${REGISTRY_PASSWORD} $${REGISTRY}
-      - docker build  --tag $${image_name}:$${DRONE_BUILD_NUMBER}  $${image_name}:latest .
+      - docker build  --tag $${image_name}:$${DRONE_BUILD_NUMBER} --tag $${image_name}:latest .
       - docker push $${image_name}}
       - docker push $${image_name}}:latest
 
