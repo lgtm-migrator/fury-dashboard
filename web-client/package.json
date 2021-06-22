@@ -10,7 +10,7 @@
     "build-to-server": "webpack --mode production -o ../static/",
     "dev": "concurrently \"webpack --watch\" \"serve dist -p 3001\"",
     "dev-local-no-backend": "webpack serve --env from_yaml=true --env offline=true",
-    "dev-local-with-backend": "webpack serve --env from_yaml=true --env offline=false"
+    "dev-local-with-backend": "concurrently \"webpack serve --env from_yaml=true --env offline=true\" \"go run ../main.go\""
   },
   "dependencies": {
     "@vaadin/router": "^1.7.4",
