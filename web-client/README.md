@@ -10,7 +10,7 @@ Go into the `/web-client` folder and run:
 - `yarn dev-local-no-backend` to run the project with no go server running
 - `yarn dev-local-with-backend` to run the project with a go server
 
-both need a config.yml in the root of the project to parse configurations.
+both need a config.yml in the root of the project to parse configurations, you can find a sample named as [`example-config.yml`](../example-config.yml).
 
 ### Build a dashboard component
 
@@ -25,11 +25,23 @@ In both cases they have to come under the shape of **WEB Component**, but don't 
 - Svelte and Vanilla JS:
 - ...
 
+Both local/remote components needs to be added in the common webcomponents [`Registry`](./src/Services/WebComponents/Registry.ts), inside the `ComponentTagList` static object and then in `App.tsx` with the following instructions:
+
+```ts
+ /**
+  * App.tsx
+  */
+ async function init() {
+  ...
+  Registry.singleton.add(Registry.ComponentTagList.FuryBrandNewComponent, FuryBrandNewComponent);
+  ...
+ }
+```
+
 #### Local/Static component case:
 (_DRAFT_)
 
 #### Remote/Federated Module case:
-(_DRAFT_)
 Once wrapped your project inside a webcomponent, you need to expose it as a federated module, throughout the `webpack.config.js` file, specifying `scope` `module name` `url`.
 
 Then inside the dashboard `Services/ConfigutationLoader/ModuleAssociations.ts` you need to add your new module reference like this:
@@ -51,12 +63,12 @@ Then inside the dashboard `Services/ConfigutationLoader/ModuleAssociations.ts` y
 		{
 			yamlComponentName: ModuleConstants.names.furyconnectswitchui,
 			routePath        : '/support',
-			componentName    : 'fury-support',
+			componentName    : Registry.ComponentTagList.FurySupport,
 		},
 		{
 			yamlComponentName: ModuleConstants.names.furybrandnewcomponent,
 			routePath        : '/brandnewroute',
-			componentName    : 'fury-brand-new-component',
+			componentName    : Registry.ComponentTagList.FuryBrandNewComponent,
 		},
     {...}
 	];
