@@ -20,6 +20,11 @@ name: Build docker image
 depends_on:
   - License
 
+volumes:
+  - name: dockersock
+    host:
+      path: /var/run/docker.sock
+
 steps:
   - name: build_and_push_docker_image
     image: docker:dind
@@ -39,7 +44,7 @@ steps:
     commands:
       - image_name=$${REGISTRY}/fury/fury-dashboard
       - docker login -u $${REGISTRY_USER} -p $${REGISTRY_PASSWORD} $${REGISTRY}
-      - docker build  --tag $${image_name}:$${DRONE_BUILD_NUMBER} --tag $${image_name}:latest .
+      - docker build  --pull --no-cache --tag $${image_name}:$${DRONE_BUILD_NUMBER} --tag $${image_name}:latest .
       - docker push $${image_name}}
       - docker push $${image_name}}:latest
 
