@@ -1,0 +1,16 @@
+# Copyright (c) 2021 SIGHUP s.r.l All rights reserved.
+# Use of this source code is governed by a BSD-style
+# license that can be found in the LICENSE file.
+
+---
+appEnv: "production"
+listener: 0.0.0.0:8080
+externalEndpoint: http://fury-dashboard.sighup-staging.localdomain
+remoteComponents:
+  furyconnectswitchui:
+    scope: FuryConnectSwitchUI
+    module: ./FurySupport
+    url: http://10.7.0.25/remoteEntry.js
+    params:
+      apiurl: http://10.7.0.25/api/v0/
+      supportserviceid: sighup-worker-proxy.service
