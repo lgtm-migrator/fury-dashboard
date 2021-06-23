@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
         - name: fury-dashboard
-          image: fury-dashboard
+          image: registry.sighup.io/fury/fury-dashboard
           ports:
             - containerPort: 8080
           volumeMounts:
