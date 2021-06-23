@@ -10,4 +10,4 @@ resources:
 configMapGenerator:
   - name: config-file
     files:
-      - config/config.yml
+      - config.yml=config/fury-dashboard-config.yml
