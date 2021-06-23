@@ -51,7 +51,7 @@ steps:
       - docker build --target compile --tag $${image_name}:backend .
       - docker build --cache-from $${image_name}:webapp --cache-from $${image_name}:backend --tag $${image_name}:$${DRONE_BUILD_NUMBER} --tag $${image_name}:latest .
       - docker push $${image_name}:webapp
-      - docker push $${image_name}
+      - docker push $${image_name}:$${DRONE_BUILD_NUMBER}
       - docker push $${image_name}:latest
 
   - name: deploy_k8s_staging
