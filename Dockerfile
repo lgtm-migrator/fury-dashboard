@@ -35,5 +35,7 @@ RUN goreleaser build --debug --snapshot --rm-dist
 
 FROM debian:buster
 
-COPY --from=compile /app/dist/fury-dashboard-linux_linux_amd64/fury-dashboard /usr/local/bin/fury-dashboard
-COPY example-config.yml config.yml
+RUN mkdir -p /app
+WORKDIR /app
+COPY --from=compile /app/dist/fury-dashboard-linux_linux_amd64/fury-dashboard /app/fury-dashboard
+CMD ["/app/fury-dashboard"]
