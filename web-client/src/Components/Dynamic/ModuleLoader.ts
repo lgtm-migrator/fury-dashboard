@@ -44,7 +44,7 @@ export abstract class ModuleLoader<T> {
 		const factory = await window[this.componentConfig.scope].get(this.componentConfig.module);
 		const Module = factory();
 
-		FuryStorage.singleton.setModuleValue(this.moduleKey, this.componentConfig.params);
+		FuryStorage.singleton.setModuleValue(this.moduleKey, this.componentConfig.params, this.componentConfig.mocked);
 
 		return Module.default;
 	};

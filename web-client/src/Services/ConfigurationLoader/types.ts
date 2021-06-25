@@ -22,6 +22,8 @@ export interface RemoteFederatedModule<T extends {}> {
 
 	readonly url: string
 
+	readonly mocked: boolean
+
 	readonly params: T
 }
 

@@ -11,6 +11,7 @@ remoteComponents:
     scope: FuryConnectSwitchUI 
     module: ./FurySupport
     url: http://localhost:8083/remoteEntry.js
+    mocked: true
     params:
       apiurl: http://localhost:8083/api/v0/
       supportserviceid: ssh.service

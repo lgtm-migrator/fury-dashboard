@@ -23,6 +23,7 @@ type RemoteComponent struct {
 	Scope  string            `json:"scope"`
 	Module string            `json:"module"`
 	Url    string            `json:"url"`
+	Mocked bool 			 `json:"mocked"`
 	Params map[string]string `json:"params"`
 }
 

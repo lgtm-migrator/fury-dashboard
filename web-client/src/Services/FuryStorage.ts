@@ -40,8 +40,9 @@ export class FuryStorage {
 	 *
 	 * @param moduleKey The module key
 	 * @param params The module Params object
+	 * @param mocked The module mocked property
 	 */
-	public setModuleValue(moduleKey: string, params: {}) {
+	public setModuleValue(moduleKey: string, params: {}, mocked = false) {
 
 		const routeConfiguration = ModuleConstants.routeAssociations.find((e) => e.yamlComponentName === moduleKey);
 
@@ -52,6 +53,7 @@ export class FuryStorage {
 		window.FURY.modules[moduleKey] = {
 			...window.FURY.modules[moduleKey],
 			basePath: routeConfiguration ? routeConfiguration.routePath : '/',
+			mocked: mocked,
 			params: {...params},
 		};
 
