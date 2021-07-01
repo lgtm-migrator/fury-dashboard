@@ -48,6 +48,8 @@ Then inside the dashboard `Services/ConfigutationLoader/ModuleAssociations.ts` y
 
 ```ts
 /**
+ * -- DEPRECATED --
+ */
  * ModuleAssociations.ts
  */
   ...

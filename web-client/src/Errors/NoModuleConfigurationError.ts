@@ -4,7 +4,7 @@
  * license that can be found in the LICENSE file.
  */
 
-import {DashboardConfig} from "../Services/ConfigurationLoader/DashboardConfig";
+import { DashboardConfig } from '../Services/Configuration/DashboardConfig';
 
 export class NoModuleConfigurationError extends Error {
   

@@ -4,10 +4,10 @@
  * license that can be found in the LICENSE file.
  */
 
-import React from "react";
-import ReactDOM from "react-dom";
+import React from 'react';
+import ReactDOM from 'react-dom';
 
-import reactToWebComponent from "react-to-webcomponent";
+import reactToWebComponent from 'react-to-webcomponent';
 
 const ErrorDefault = (props: {}) => {
 	return (

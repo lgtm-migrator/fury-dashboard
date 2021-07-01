@@ -4,26 +4,37 @@
  * license that can be found in the LICENSE file.
  */
 
-import log, { levels, LogLevelDesc } from 'loglevel';
+import { Factory } from 'fury-component';
 
 export class Logger {
 
-	public readonly instance: log.Logger;
+	public readonly instance;
 
-	public static readonly singleton: log.Logger = new Logger("singleton").instance;
+	public static readonly singleton = Factory.logger({
+			level: Logger.getLogLevel(),
+		},
+		{
+			name: 'DASHBOARD_SINGLETON',
+		});
 
 	private constructor(name: string) {
-		this.instance = log.getLogger(name);
-		
-		this.instance.setLevel(Logger.getLogLevel());
+
+
+		this.instance = Factory.logger({
+				level: Logger.getLogLevel(),
+			},
+			{
+				name: name,
+			});
+
 	}
 
-	private static getLogLevel(): LogLevelDesc {
+	private static getLogLevel(): 'debug' | 'warn' {
 		switch (process.env.APP_ENV) {
 			case 'development':
-				return log.levels.DEBUG;
+				return 'debug';
 			default:
-				return log.levels.WARN;
+				return 'warn';
 		}
 	}
 }

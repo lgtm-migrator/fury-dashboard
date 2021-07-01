@@ -5,7 +5,7 @@
  */
 
 import { RemoteComponents } from './types';
-import {Logger} from "../Logging/Logger";
+import { Logger } from '../Logging/Logger';
 
 type ConstructorParams = {
 	DASHBOARD_ENDPOINT: any;
@@ -13,9 +13,9 @@ type ConstructorParams = {
 };
 
 export class DashboardConfig {
-	public readonly DASHBOARD_ENDPOINT?: string;
+	public readonly dashboardEndpoint?: string;
 
-	public readonly REMOTE_COMPONENTS: RemoteComponents;
+	public readonly remoteComponents: RemoteComponents;
 
 	public static singleton: DashboardConfig;
 
@@ -25,18 +25,18 @@ export class DashboardConfig {
 			throw new Error('missing dashboard config data');
 		}
 
-		this.DASHBOARD_ENDPOINT = conf.DASHBOARD_ENDPOINT;
-		this.REMOTE_COMPONENTS = conf.remoteComponents;
+		this.dashboardEndpoint = conf.DASHBOARD_ENDPOINT;
+		this.remoteComponents = conf.remoteComponents;
 	}
 
 	private static fromEnvOrWindow(): DashboardConfig {
-		const dashboardconfig = process.env.DASHBOARD_CONFIG;
+		const dashboardConfig = process.env.DASHBOARD_CONFIG;
 
-		if (!dashboardconfig) {
+		if (!dashboardConfig) {
 			throw Error('no DASHBOARD_CONFIG found');
 		}
-		Logger.singleton.log(dashboardconfig);
-		const parsedConfig = JSON.parse(dashboardconfig);
+		Logger.singleton.log(dashboardConfig);
+		const parsedConfig = JSON.parse(dashboardConfig);
 		Logger.singleton.log(parsedConfig)
 		if (
 			!parsedConfig.DASHBOARD_ENDPOINT ||
@@ -65,8 +65,8 @@ export class DashboardConfig {
 
 	public static async createSingletonAsync(): Promise<DashboardConfig> {
 		// Take the config from different places based
-		// on the enviroment
-		Logger.singleton.log(process.env)
+		// on the environment
+		Logger.singleton.log(JSON.stringify(process.env))
 		if (process.env.SERVER_OFFLINE === 'true') {
 			DashboardConfig.singleton =
 				DashboardConfig.fromEnvOrWindow();

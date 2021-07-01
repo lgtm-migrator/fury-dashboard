@@ -16,21 +16,36 @@ export interface ClusterMapParams {
 }
 
 export interface RemoteFederatedModule<T extends {}> {
+	/**
+	 * TODO
+	 */
 	readonly scope: string
 
+	/**
+	 * the name of the class that we should import
+	 */
 	readonly module: string
 
+	/**
+	 * the url where the module should be loaded
+	 */
 	readonly url: string
 
+	/**
+	 * describe if the module should work with fake data
+	 */
 	readonly mocked: boolean
 
+	/**
+	 * the custom state of the module
+	 */
 	readonly params: T
 }
 
 export interface RemoteComponents {
 	[key: string]: any
 
-	furyconnectswitchui?: RemoteFederatedModule<FuryDashboardParams>
+	'fury-support'?: RemoteFederatedModule<FuryDashboardParams>
 }
 
 

@@ -5,14 +5,33 @@
  */
 
 import { Router as RouterLibrary } from '@vaadin/router';
-import { DashboardConfig } from '../ConfigurationLoader/DashboardConfig';
-import { ModuleConstants } from '../ConfigurationLoader/ModuleAssociation';
-import { Registry } from "../WebComponents/Registry";
+import { DashboardConfig } from './DashboardConfig';
+
+import { FuryModule } from './FuryModule';
+
+
+interface Associations {
+
+	routePath: string
+
+	componentName: FuryModule
+}
 
 /**
  * generates the router for the fury-dashboard
  */
 export class Router {
+
+
+	/**
+	 * Assigns each Federated Module to a route. If the component is present in the yaml configuration it gets assigned to the route
+	 */
+	public static moduleRouteAssociations: Associations[] = [
+		{
+			componentName: FuryModule.support,
+			routePath        : '/support',
+		},
+	];
 
 	private readonly _router: RouterLibrary;
 
@@ -25,7 +44,12 @@ export class Router {
 	}
 
 
-	private generateComponentRoute(path: string, component: string): RouterLibrary.Route {
+	public add(componentTag: FuryModule, componentModule: any) {
+		window.customElements.define(componentTag, componentModule);
+	}
+
+
+	private generateComponentRoute(path: string, component: FuryModule): RouterLibrary.Route {
 
 		// we need (.*) to delegate all the subpath to the dynamically loaded module.
 		// example: /support -> /support/ex should be handled always by /support
@@ -41,15 +65,15 @@ export class Router {
 		const routes: RouterLibrary.Route[] = [
 			{ path: '/', component: '' },
 			// Example of static component routing
-			this.generateComponentRoute('/sample', Registry.ComponentTagList.FurySubNav),
+			this.generateComponentRoute('/sample', FuryModule.subnav),
 		];
 
 		// we extract all the yaml remote components defined in the configurations
-		for (const yamlComponentName of Object.keys(this._conf.REMOTE_COMPONENTS)) {
+		for (const yamlComponentName of Object.keys(this._conf.remoteComponents)) {
 
 
 			// we extract the route configuration for the module
-			const routeConfiguration = ModuleConstants.routeAssociations.find((e) => e.yamlComponentName === yamlComponentName);
+			const routeConfiguration = Router.moduleRouteAssociations.find((e) => e.componentName === yamlComponentName);
 
 			if (!routeConfiguration) {
 				throw Error('module not supported by fury dashboard. Check the module name. Module name: ' + yamlComponentName);
