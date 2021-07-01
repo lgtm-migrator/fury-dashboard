@@ -7,7 +7,7 @@
 import { Router as RouterLibrary } from '@vaadin/router';
 import { DashboardConfig } from '../ConfigurationLoader/DashboardConfig';
 import { ModuleConstants } from '../ConfigurationLoader/ModuleAssociation';
-import { Registry } from "../WebComponents/Registry";
+import { Registry } from '../WebComponents/Registry';
 
 /**
  * generates the router for the fury-dashboard

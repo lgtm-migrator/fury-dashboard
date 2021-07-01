@@ -4,31 +4,21 @@
  * license that can be found in the LICENSE file.
  */
 
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link
-} from "react-router-dom";
-import {
-  EuiIcon,
-  EuiBadge,
-  EuiAvatar,
-  EuiHeader,
-  EuiButton,
-  EuiSpacer,
-  EuiSideNav,
-  EuiHeaderLogo,
-  EuiHeaderLink,
-  EuiHeaderLinks,
-  EuiEmptyPrompt,
-  EuiHeaderBreadcrumbs,
-  EuiHeaderSectionItem,
-  EuiHeaderSectionItemButton,
+	EuiButton,
+	EuiEmptyPrompt,
+	EuiHeader,
+	EuiHeaderLink,
+	EuiHeaderLinks,
+	EuiHeaderSectionItem,
+	EuiIcon,
+	EuiSideNav,
+	EuiSpacer,
 } from 'fury-design-system';
-import reactToWebComponent from "react-to-webcomponent";
+import reactToWebComponent from 'react-to-webcomponent';
 
 
 function Home() {

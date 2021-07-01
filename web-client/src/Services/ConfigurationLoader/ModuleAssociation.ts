@@ -4,7 +4,7 @@
  * license that can be found in the LICENSE file.
  */
 
-import {Registry} from "../WebComponents/Registry";
+import { Registry } from '../WebComponents/Registry';
 
 interface Associations {
 	yamlComponentName: string

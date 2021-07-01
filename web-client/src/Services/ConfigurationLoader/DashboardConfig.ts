@@ -5,7 +5,7 @@
  */
 
 import { RemoteComponents } from './types';
-import {Logger} from "../Logging/Logger";
+import { Logger } from '../Logging/Logger';
 
 type ConstructorParams = {
 	DASHBOARD_ENDPOINT: any;
@@ -66,7 +66,7 @@ export class DashboardConfig {
 	public static async createSingletonAsync(): Promise<DashboardConfig> {
 		// Take the config from different places based
 		// on the enviroment
-		Logger.singleton.log(process.env)
+		Logger.singleton.log(JSON.stringify(process.env))
 		if (process.env.SERVER_OFFLINE === 'true') {
 			DashboardConfig.singleton =
 				DashboardConfig.fromEnvOrWindow();

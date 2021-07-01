@@ -61,7 +61,6 @@ export abstract class ModuleLoader<T> {
 	private loadScriptAsync(): Promise<CustomElementConstructor> {
 		return new Promise((resolve, reject) => {
 			const element = document.createElement('script');
-			Logger.singleton.log('this', this)
 
 			element.src = this.componentConfig.url;
 			element.type = 'text/javascript';

@@ -5,7 +5,7 @@
  */
 
 import { ModuleConstants } from './ConfigurationLoader/ModuleAssociation';
-import { Language, FuryState } from './ConfigurationLoader/types';
+import { FuryState, Language } from './ConfigurationLoader/types';
 
 /**
  * @class FuryStorage

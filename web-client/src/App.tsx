@@ -12,7 +12,7 @@ import { DashboardConfig } from './Services/ConfigurationLoader/DashboardConfig'
 import { Router } from './Services/Routing/Router';
 import { HTMLRetriever } from './Services/HTMLRetriever';
 import { FuryStorage } from './Services/FuryStorage';
-import {Registry} from "./Services/WebComponents/Registry";
+import { Registry } from './Services/WebComponents/Registry';
 
 
 async function init() {
