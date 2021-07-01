@@ -4,8 +4,9 @@
  * license that can be found in the LICENSE file.
  */
 
-import { ModuleConstants } from './ConfigurationLoader/ModuleAssociation';
-import { FuryState, Language } from './ConfigurationLoader/types';
+
+import { FuryState, Language } from './Configuration/types';
+import { Router } from './Configuration/Router';
 
 /**
  * @class FuryStorage
@@ -37,19 +38,20 @@ export class FuryStorage {
 	}
 
 	/**
-	 *
 	 * @param moduleKey The module key
 	 * @param params The module Params object
 	 * @param mocked The module mocked property
 	 */
-	public setModuleValue(moduleKey: string, params: {}, mocked = false) {
+	public setModuleState(moduleKey: string, params: {}, mocked = false) {
 
-		const routeConfiguration = ModuleConstants.routeAssociations.find((e) => e.yamlComponentName === moduleKey);
+		const routeConfiguration = Router.moduleRouteAssociations.find((e) => e.componentName === moduleKey);
 
+		// if no state is present we create an empty state
 		if (!window.FURY.modules[moduleKey]) {
 			window.FURY.modules[moduleKey] = {};
 		}
 
+		// we extend the existent state with additional parameters
 		window.FURY.modules[moduleKey] = {
 			...window.FURY.modules[moduleKey],
 			basePath: routeConfiguration ? routeConfiguration.routePath : '/',

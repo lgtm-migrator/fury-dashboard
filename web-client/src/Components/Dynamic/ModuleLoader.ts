@@ -4,20 +4,21 @@
  * license that can be found in the LICENSE file.
  */
 
-import { RemoteFederatedModule } from '../../Services/ConfigurationLoader/types';
-import { DashboardConfig } from '../../Services/ConfigurationLoader/DashboardConfig';
+import { RemoteFederatedModule } from '../../Services/Configuration/types';
+import { DashboardConfig } from '../../Services/Configuration/DashboardConfig';
 import { NoModuleConfigurationError } from '../../Errors/NoModuleConfigurationError';
 import ErrorDefaultWebComp from '../Errors/Default';
 import { FuryStorage } from '../../Services/FuryStorage';
 import { Logger } from '../../Services/Logging/Logger';
+import { FuryModule } from '../../Services/Configuration/FuryModule';
 
 export abstract class ModuleLoader<T> {
 
 	protected componentConfig: RemoteFederatedModule<T>;
 
-	protected constructor(protected moduleKey: string, protected readonly conf: DashboardConfig) {
+	protected constructor(protected moduleKey: FuryModule, protected readonly conf: DashboardConfig) {
 
-		if (!this.conf.REMOTE_COMPONENTS[this.moduleKey]) {
+		if (!this.conf.remoteComponents[this.moduleKey]) {
 			throw new NoModuleConfigurationError(this.moduleKey, this.conf);
 		}
 
@@ -25,7 +26,7 @@ export abstract class ModuleLoader<T> {
 	}
 
 	protected getConfig(conf: DashboardConfig): RemoteFederatedModule<T> {
-		return conf.REMOTE_COMPONENTS[this.moduleKey];
+		return conf.remoteComponents[this.moduleKey];
 	};
 
 	/**
@@ -44,7 +45,7 @@ export abstract class ModuleLoader<T> {
 		const factory = await window[this.componentConfig.scope].get(this.componentConfig.module);
 		const Module = factory();
 
-		FuryStorage.singleton.setModuleValue(this.moduleKey, this.componentConfig.params, this.componentConfig.mocked);
+		FuryStorage.singleton.setModuleState(this.moduleKey, this.componentConfig.params, this.componentConfig.mocked);
 
 		return Module.default;
 	};

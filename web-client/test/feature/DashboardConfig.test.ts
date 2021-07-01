@@ -4,14 +4,15 @@
  * license that can be found in the LICENSE file.
  */
 
-import {DashboardConfig} from "../../src/Services/ConfigurationLoader/DashboardConfig";
+import {DashboardConfig} from "../../src/Services/Configuration/DashboardConfig";
 import {Module as DashboardModule} from "../../src/Components/Dashboard/Module";
 
 test("DashboardConfig load to singleton", async () => {
+
   const dashboardConfig = {
     "DASHBOARD_ENDPOINT": "http://localhost:8087",
     "remoteComponents": {
-      "furyconnectswitchui": {
+      "fury-support": {
         "scope": "FuryConnectSwitchUI",
         "module": "./FurySupport",
         "url": "http://localhost:8084/remoteEntry.js",
@@ -20,10 +21,11 @@ test("DashboardConfig load to singleton", async () => {
     }
   };
 
-  const expectedDashboardConfig: DashboardConfig = {
-    "DASHBOARD_ENDPOINT": "http://localhost:8087",
-    "REMOTE_COMPONENTS": {
-      "furyconnectswitchui": {
+
+  const expectedDashboardConfig = {
+    "dashboardEndpoint": "http://localhost:8087",
+    "remoteComponents": {
+      "fury-support": {
         "scope": "FuryConnectSwitchUI",
         "module": "./FurySupport",
         "url": "http://localhost:8084/remoteEntry.js",

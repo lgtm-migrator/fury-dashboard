@@ -7,7 +7,7 @@ appEnv: 'development'
 listener: 0.0.0.0:8080
 externalEndpoint: http://localhost:8087
 remoteComponents:
-  furyconnectswitchui:
+  fury-support:
     scope: FuryConnectSwitchUI 
     module: ./FurySupport
     url: http://localhost:8083/remoteEntry.js

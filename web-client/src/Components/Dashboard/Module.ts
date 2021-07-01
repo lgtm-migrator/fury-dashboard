@@ -5,15 +5,15 @@
  */
 
 import { ModuleLoader } from '../Dynamic/ModuleLoader';
-import { FuryDashboardParams } from '../../Services/ConfigurationLoader/types';
-import { DashboardConfig } from '../../Services/ConfigurationLoader/DashboardConfig';
-import { ModuleConstants } from '../../Services/ConfigurationLoader/ModuleAssociation';
+import { FuryDashboardParams } from '../../Services/Configuration/types';
+import { DashboardConfig } from '../../Services/Configuration/DashboardConfig';
+import { FuryModule } from '../../Services/Configuration/FuryModule';
 
 
 export class Module extends ModuleLoader<FuryDashboardParams> {
 
 	constructor(dashboardConfig = DashboardConfig.singleton) {
-		super(ModuleConstants.names.furyconnectswitchui, dashboardConfig);
+		super(FuryModule.support, dashboardConfig);
 	}
 
 }

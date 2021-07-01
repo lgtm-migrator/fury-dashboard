@@ -7,7 +7,7 @@ appEnv: "production"
 listener: 0.0.0.0:8080
 externalEndpoint: http://fury-dashboard.sighup-staging.localdomain
 remoteComponents:
-  furyconnectswitchui:
+  fury-support:
     scope: FuryConnectSwitchUI
     module: ./FurySupport
     url: http://10.7.0.25/remoteEntry.js
