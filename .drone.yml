@@ -3,6 +3,7 @@
 # license that can be found in the LICENSE file.
 
 kind: pipeline
+type: docker
 name: License
 
 steps:
@@ -15,7 +16,8 @@ steps:
 
 ---
 kind: pipeline
-name: Build docker image
+type: docker
+name: Build
 
 depends_on:
   - License
@@ -54,10 +56,25 @@ steps:
       - docker push $${image_name}:$${DRONE_BUILD_NUMBER}
       - docker push $${image_name}:latest
 
+---
+kind: pipeline
+type: docker
+name: Deploy
+
+depends_on:
+  - Build
+
+node:
+  runner: internal
+
+volumes:
+  - name: dockersock
+    host:
+      path: /var/run/docker.sock
+
   - name: deploy_k8s_staging
     image: quay.io/sighup/kubectl-kustomize:1.18.2_3.6.1
     pull: always
-    depends_on: [build_and_push_docker_image]
     environment:
       REGISTRY:
         from_secret: REGISTRY
@@ -75,6 +92,7 @@ steps:
 
 ---
 kind: pipeline
+type: docker
 name: Build and Release
 
 depends_on:
