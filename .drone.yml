@@ -72,10 +72,11 @@ volumes:
     host:
       path: /var/run/docker.sock
 
+steps:
   - name: deploy_k8s_staging
     image: quay.io/sighup/kubectl-kustomize:1.18.2_3.6.1
     pull: always
-    environment:
+  environment:
       REGISTRY:
         from_secret: REGISTRY
       KUBECONFIG:
